@@ -1,13 +1,19 @@
 #div-container {
+    align-content: center;
     display: flex;
     flex-wrap: wrap;
 }
 
 .new-div {
     margin: 0 1em 1em 0;
-    box-shadow: 0px 3px 3px grey;
-    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    padding: 2px 16px;
     border-radius: 5px;
+    transition: 0.3s;
+}
+
+.new-div:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 #btn {
@@ -17,11 +23,19 @@
     border-radius: 8px;
     padding: 5px;
     margin-bottom: 10px;
+    transition: 0.3s;
 }
 
 #btn:hover {
-    border: 1px;
-    border-color: black;
+    outline: 0.5px solid black;
     cursor: pointer;
     background-color: rgb(255, 50, 50);
+}
+
+.new-title {
+    color: rgb(49, 49, 49);
+}
+
+.new-paragraph {
+    color: rgb(82, 82, 82);
 }

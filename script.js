@@ -12,10 +12,17 @@ const fetchPostJSON = async () => {
 const addDiv = () => {
   const newDiv = document.createElement("div");
   newDiv.className = 'new-div';
+  const newTitle = document.createElement("h1");
+  newTitle.className = 'new-title';
+  const newParagraph = document.createElement("p");
+  newParagraph.className = 'new-paragraph';
 
   fetchPostJSON().then(data => {
-    newDiv.innerHTML = JSON.stringify(data);
+    newTitle.innerHTML = data.title;
+    newParagraph.innerHTML= data.body;
     nClicks++;
+    newDiv.appendChild(newTitle);
+    newDiv.appendChild(newParagraph);
     divContainer.appendChild(newDiv);
   });
 }
