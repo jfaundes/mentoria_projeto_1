@@ -17,25 +17,33 @@
 }
 
 #btn {
-    text-align: center;
-    width: 80px;
-    background-color: rgb(255, 94, 94);
-    border-radius: 8px;
+    width: 100px;
     padding: 5px;
     margin-bottom: 10px;
+    font-weight: 600;
+    text-align: center;
+    background-color: rgb(37, 174, 216);
+    border-radius: 8px;
     transition: 0.3s;
 }
 
 #btn:hover {
     outline: 0.5px solid black;
     cursor: pointer;
-    background-color: rgb(255, 50, 50);
+    background-color: rgb(42, 205, 255);
 }
 
 .new-title {
+    margin: 0 0 5px 0;
     color: rgb(49, 49, 49);
 }
 
 .new-paragraph {
+    margin: 0 0 0 0;
     color: rgb(82, 82, 82);
+}
+
+.new-footer {
+    margin-top: 10px;
+    font-size: 12px;
 }
