@@ -40,17 +40,17 @@ main {
     font-weight: 700;
     font-size: medium;
     text-align: center;
-    background-color: #ff4742;
     border-radius: 50px;
     transition: 0.3s;
-    color: white;
+    background-color: white;
+    color: #ff4742;
+    outline: 1px solid #ff4742;
 }
 
 .btn:hover {
-    outline: 0.5px solid #ff4742;
+    background-color: #ff4742;
+    color: white;
     cursor: pointer;
-    background-color: white;
-    color: #ff4742;
 }
 
 .post-title {
