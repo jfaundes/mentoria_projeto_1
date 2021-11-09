@@ -1,48 +1,65 @@
-const addButton = document.getElementById("btn");
+const loadOneBtn = document.getElementById("load-one-btn");
+const loadFiveBtn = document.getElementById("load-five-btn");
 const divContainer = document.querySelector("#div-container");
-const getPostURL = id => `https://jsonplaceholder.typicode.com/posts/${id}`;
 const posts = [];
 const POSTS_INICIAIS = 3;
-let nextId = POSTS_INICIAIS + 1;
+let nextId = 1;
 
-const getNextPost = () => {
-  fetch(getPostURL(nextId))
-    .then(response => response.json())
-    .then(data => makePost(data));
-  nextId++;
+const getPostURL = id => `https://jsonplaceholder.typicode.com/posts/${id}`;
+
+const fetchPosts = n => {
+  for(i = 0; i < n; i++) {
+    posts.push(fetch(getPostURL(nextId))
+      .then(data => data.json())
+      .then(nextId++));
+  }
+  Promise.all(posts.slice(-n))
+  .then(posts => {
+    posts.forEach(post => {
+      printPost(post);
+    });
+  })
 }
 
-const makePost = post => {
-  const newDiv = document.createElement("div");
-  newDiv.className = 'new-div';
+const getOnePost = () => {
+  fetchPosts(1);
+}
 
-  const newTitle = document.createElement("h1");
-  newTitle.className = 'new-title';
-  newTitle.innerHTML = post.title;
+const getThreePosts = () => {
+  fetchPosts(3);
+}
+
+const getFivePosts = () => {
+  fetchPosts(5);
+}
+
+const printPost = post => {
+  const newContainer = document.createElement("article");
+  newContainer.className = 'post-container';
+
+  const newTitle = document.createElement("title");
+  const newH1 = document.createElement("h1");
+  newH1.className = 'post-title';
+  newH1.innerHTML = post.title;
   
   const newParagraph = document.createElement("p");
-  newParagraph.className = 'new-paragraph';
+  newParagraph.className = 'post-content';
   newParagraph.innerHTML= post.body;
   
-  const newFooter = document.createElement("span");
-  newFooter.className = 'new-footer';
+  const newFooter = document.createElement("footer");
+  newFooter.className = 'post-footer';
   newFooter.innerHTML = post.id;
   
-  newDiv.appendChild(newTitle);
-  newDiv.appendChild(newParagraph);
-  newDiv.appendChild(newFooter);
+  newH1.appendChild(newTitle);
+  newContainer.appendChild(newH1);
+  newContainer.appendChild(newParagraph);
+  newContainer.appendChild(newFooter);
   
-  divContainer.appendChild(newDiv);
+  divContainer.appendChild(newContainer);
 }
 
-for(i = 1; i <= POSTS_INICIAIS; i++) {
-  posts.push(fetch(getPostURL(i)).then(data => data.json()))
-}
-Promise.all(posts)
-.then(posts => {
-  posts.forEach(post => {
-    makePost(post);
-  });
-})
+getThreePosts();
 
-addButton.addEventListener("click", getNextPost);
+loadOneBtn.addEventListener("click", getOnePost);
+loadFiveBtn.addEventListener("click", getFivePosts);
+

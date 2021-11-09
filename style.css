@@ -1,23 +1,36 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #div-container {
     align-content: center;
     display: flex;
     flex-wrap: wrap;
+    width: 800px;
 }
 
-.new-div {
-    margin: 0 1em 1em 0;
+.post-container {
+    margin: 0 0 1em 0;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     padding: 2px 16px;
     border-radius: 5px;
     transition: 0.3s;
 }
 
-.new-div:hover {
+.post-container:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-#btn {
-    width: 100px;
+.btn-container {
+    width: 800px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn {
+    width: 150px;
     padding: 5px;
     margin-bottom: 10px;
     font-weight: 600;
@@ -27,23 +40,28 @@
     transition: 0.3s;
 }
 
-#btn:hover {
+.btn:hover {
     outline: 0.5px solid black;
     cursor: pointer;
     background-color: rgb(42, 205, 255);
 }
 
-.new-title {
+.post-title {
     margin: 0 0 5px 0;
     color: rgb(49, 49, 49);
 }
 
-.new-paragraph {
+.post-content {
     margin: 0 0 0 0;
     color: rgb(82, 82, 82);
 }
 
-.new-footer {
+.post-footer {
     margin-top: 10px;
     font-size: 12px;
+}
+
+@media only screen and (max-width: 820px) {
+    #div-container { width: 95vw; }
+    .btn-container { width: 95vw; }
 }
