@@ -30,7 +30,7 @@ const printPost = post => {
   divContainer.appendChild(newContainer);
 }
 
-const fetchPosts = n => {
+const getPosts = n => {
   for(i = 0; i < n; i++) {
     posts.push(fetch(getPostURL(nextId))
       .then(data => data.json())
@@ -44,18 +44,6 @@ const fetchPosts = n => {
   })
 }
 
-const getOnePost = () => {
-  fetchPosts(1);
-}
-
-const getThreePosts = () => {
-  fetchPosts(3);
-}
-
-const getFivePosts = () => {
-  fetchPosts(5);
-}
-
-getThreePosts();
-loadOneBtn.addEventListener("click", getOnePost);
-loadFiveBtn.addEventListener("click", getFivePosts);
+getPosts(3);
+loadOneBtn.addEventListener("click", () => getPosts(1));
+loadFiveBtn.addEventListener("click", () => getPosts(5));
