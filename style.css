@@ -28,6 +28,36 @@ main {
     cursor: pointer;
 }
 
+.comment-wrapper {
+    margin-top: 20px;
+    padding: 5px;
+    border-radius: 8px;
+    outline: 1px solid black;
+}
+
+.comment-title {
+    margin: 0 0 5px 0;
+    color: blue;
+    font-size: medium;
+}
+
+.comment-content {
+    font-size: small;
+    margin: 0 0 0 0;
+    color: rgb(37, 37, 37);
+}
+
+.comment-email {
+    font-size: small;
+    margin: 0 0 0 0;
+    color: blue;
+}
+
+.comment-footer {
+    margin-top: 10px;
+    font-size: x-small;
+}
+
 .btn-container {
     width: 800px;
     display: flex;

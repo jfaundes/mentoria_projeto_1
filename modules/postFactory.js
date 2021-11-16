@@ -35,7 +35,8 @@ function postFactory(post, destination) {
 
     function makeCommentWrapper() {
         const commentWrapper = document.createElement('div');
-        commentWrapper.className = 'commentWrapper';
+        commentWrapper.className = 'comment-wrapper';
+        commentWrapper.style.display = 'none';
         return commentWrapper;
     }
 
