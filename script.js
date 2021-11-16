@@ -17,7 +17,7 @@ const printPosts = async nPosts => {
   try {
     const postsArray = await postsPromise;
     for(let i = 0; i < nPosts; i++) {
-      divContainer.appendChild(postFactory(postsArray[currentId]));
+      postFactory(postsArray[currentId], divContainer);
       currentId++;
     }
   } catch (e) {

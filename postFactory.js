@@ -1,4 +1,4 @@
-function postFactory(post) {
+function postFactory(post, destination) {
     function makeContainer() {
         const container = document.createElement('article');
         container.className = 'post-container';
@@ -30,7 +30,7 @@ function postFactory(post) {
     container.appendChild(makeTitle(post.title));
     container.appendChild(makeParagraph(post.body));
     container.appendChild(makeFooter(post.id));
-    return container;
+    destination.appendChild(container);
 }
 
 export default postFactory;
