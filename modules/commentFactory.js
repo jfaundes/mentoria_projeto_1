@@ -1,36 +1,44 @@
-function postFactory(post, destination) {
+function commentFactory(comment, destination) {
     function makeContainer() {
         const container = document.createElement('article');
-        container.className = 'post-container';
+        container.className = 'comment-container';
         return container;
     }
 
     function makeTitle(titleContent) {
         const title = document.createElement('h1');
-        title.className = 'post-title';
+        title.className = 'comment-title';
         title.innerHTML = titleContent;
         return title;
     }
 
     function makeParagraph(paragraphContent) {
         const paragraph = document.createElement('p');
-        paragraph.className = 'post-content';
+        paragraph.className = 'comment-content';
         paragraph.innerHTML = paragraphContent;
         return paragraph;
     }
 
+    function makeEmail(emailContent) {
+        const email = document.createElement('span');
+        email.className = 'comment-email';
+        email.innerHTML = emailContent;
+        return email;
+    }
+
     function makeFooter(footerContent) {
         const footer = document.createElement('footer');
-        footer.className = 'post-footer';
+        footer.className = 'comment-footer';
         footer.innerHTML = footerContent;
         return footer;
     }
 
     const container = makeContainer();
-    container.appendChild(makeTitle(post.title));
-    container.appendChild(makeParagraph(post.body));
-    container.appendChild(makeFooter(post.id));
+    container.appendChild(makeTitle(comment.name));
+    container.appendChild(makeParagraph(comment.body));
+    container.appendChild(makeEmail(comment.email));
+    container.appendChild(makeFooter(comment.id));
     destination.appendChild(container);
 }
 
-export default postFactory;
+export default commentFactory;
