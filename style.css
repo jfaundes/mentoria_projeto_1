@@ -29,10 +29,16 @@ main {
 }
 
 .comment-wrapper {
-    margin-top: 20px;
+    margin: 20px 0 5px 0;
     padding: 5px;
     border-radius: 8px;
     outline: 1px solid black;
+}
+
+.comment-wrapper-title {
+    margin: 0 0 5px 0;
+    color: darkblue;
+    font-size: medium;
 }
 
 .comment-title {

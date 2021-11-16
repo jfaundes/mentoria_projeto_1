@@ -37,6 +37,13 @@ function postFactory(post, destination) {
         const commentWrapper = document.createElement('div');
         commentWrapper.className = 'comment-wrapper';
         commentWrapper.style.display = 'none';
+
+        const title = document.createElement('h1');
+        title.className = 'comment-wrapper-title';
+        title.innerHTML = 'Comentários: ';
+
+        commentWrapper.appendChild(title);
+
         return commentWrapper;
     }
 
