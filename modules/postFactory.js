@@ -33,7 +33,7 @@ function postFactory(post, destination) {
 
     function makeFooter() {
         const footer = document.createElement('footer');
-        footer.className = 'post-footer';
+        footer.className = 'post-footer noselect';
         footer.innerHTML = 'Mostrar Comentários';
         return footer;
     }

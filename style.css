@@ -28,8 +28,30 @@ main {
 }
 
 .post-container {
+    display: flex;
+    flex-direction: column;
     margin: 1em 0 1em 0;
     border-radius: 5px;
+}
+
+.post-title {
+    margin: 0 0 5px 0;
+    color: rgb(49, 49, 49);
+    font-size: medium;
+}
+
+.post-content {
+    font-size: small;
+    margin: 0 0 0 0;
+    color: rgb(82, 82, 82);
+}
+
+.post-footer {
+    display: inline-block;
+    margin-top: 1em;
+    align-self: end;
+    font-size: x-small;
+    cursor: pointer;
 }
 
 .comment-wrapper {
@@ -103,22 +125,14 @@ main {
     cursor: pointer;
 }
 
-.post-title {
-    margin: 0 0 5px 0;
-    color: rgb(49, 49, 49);
-    font-size: medium;
-}
-
-.post-content {
-    font-size: small;
-    margin: 0 0 0 0;
-    color: rgb(82, 82, 82);
-}
-
-.post-footer {
-    margin-top: 10px;
-    font-size: x-small;
-    cursor: pointer;
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
 }
 
 @media only screen and (max-width: 820px) {
