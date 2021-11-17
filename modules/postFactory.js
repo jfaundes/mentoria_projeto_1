@@ -52,7 +52,7 @@ function postFactory(post, destination) {
         return commentWrapper;
     }
 
-    async function commentsController(id, button) {
+    async function commentsController(id) {
         if (!hasCommentsCache) {
             const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`);
             const commentArray = await response.json();
