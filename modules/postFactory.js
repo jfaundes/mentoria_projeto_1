@@ -1,13 +1,18 @@
 import commentFactory from "./commentFactory.js";
 
 function postFactory(post, destination) {
-    const postContainer = makeContainer();
-    const commentWrapper = makeCommentWrapper();
     let hasCommentsCache = false;
     let showComments = true;
 
-    function makeContainer() {
+    function makeWrapper() {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'post-wrapper';
+        return wrapper;
+    }
+
+    function makeContainer(postID) {
         const container = document.createElement('article');
+        container.id = `container-post${postID}`;
         container.className = 'post-container';
         return container;
     }
@@ -26,10 +31,10 @@ function postFactory(post, destination) {
         return paragraph;
     }
 
-    function makeFooter(footerContent) {
+    function makeFooter() {
         const footer = document.createElement('footer');
         footer.className = 'post-footer';
-        footer.innerHTML = footerContent;
+        footer.innerHTML = 'Mostrar Comentários';
         return footer;
     }
 
@@ -47,7 +52,7 @@ function postFactory(post, destination) {
         return commentWrapper;
     }
 
-    async function commentsController(id) {
+    async function commentsController(id, button) {
         if (!hasCommentsCache) {
             const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`);
             const commentArray = await response.json();
@@ -57,25 +62,35 @@ function postFactory(post, destination) {
                 commentFactory(comment, commentWrapper);
             }
     
-            postContainer.appendChild(commentWrapper);
             hasCommentsCache = true;
         }
 
         if (!showComments) {
             commentWrapper.style.display = 'none';
+            footer.innerHTML = 'Mostrar Comentários';
             showComments = true;
         } else {
             commentWrapper.style.display = '';
+            footer.innerHTML = 'Esconder Comentários';
             showComments = false;
         }
     }
 
+    const postWrapper = makeWrapper();
+    const postContainer = makeContainer(post.id);
+    const commentWrapper = makeCommentWrapper();
+    
+    const footer = makeFooter();
+    footer.addEventListener('click', () => commentsController(post.id, footer));
+
     postContainer.appendChild(makeTitle(post.title));
     postContainer.appendChild(makeParagraph(post.body));
-    postContainer.appendChild(makeFooter(post.id));
-    postContainer.appendChild(commentWrapper);
-    postContainer.addEventListener('click', () => commentsController(post.id));
-    destination.appendChild(postContainer);
+    postContainer.appendChild(footer);
+
+    postWrapper.appendChild(postContainer);
+    postWrapper.appendChild(commentWrapper);
+
+    destination.appendChild(postWrapper);
 }
 
 export default postFactory;
