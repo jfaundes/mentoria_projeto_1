@@ -48,10 +48,13 @@ main {
 
 .post-footer {
     display: inline-block;
-    margin-top: 1em;
     align-self: end;
-    font-size: x-small;
+    margin-top: 1em;
     cursor: pointer;
+    font-size: small;
+    color: #ff4742;
+    font-weight: 700;
+    text-decoration: underline;
 }
 
 .comment-wrapper {
@@ -65,9 +68,11 @@ main {
 }
 
 .comment-container {
+    display: flex;
+    flex-direction: column;
     margin: 0 0 1em 0;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    padding: 2px 16px;
+    padding: 5px 16px;
     border-radius: 5px;
     transition: 0.3s;
 }
@@ -90,7 +95,7 @@ main {
 
 .comment-email {
     font-size: small;
-    margin: 0 0 0 0;
+    margin: 0 0 5px 0;
     color: blue;
 }
 

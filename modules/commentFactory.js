@@ -1,6 +1,7 @@
 function commentFactory(comment, destination) {
-    function makeContainer() {
+    function makeContainer(commentID) {
         const container = document.createElement('article');
+        container.id = `comment-container${commentID}`;
         container.className = 'comment-container';
         return container;
     }
@@ -33,11 +34,11 @@ function commentFactory(comment, destination) {
         return footer;
     }
 
-    const container = makeContainer();
+    const container = makeContainer(comment.id);
+
     container.appendChild(makeTitle(comment.name));
-    container.appendChild(makeParagraph(comment.body));
     container.appendChild(makeEmail(comment.email));
-    container.appendChild(makeFooter(comment.id));
+    container.appendChild(makeParagraph(comment.body));
     destination.appendChild(container);
 }
 
