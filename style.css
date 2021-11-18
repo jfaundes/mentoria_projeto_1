@@ -1,6 +1,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #ecebe6;
+    overflow-x: hidden;
 }
 
 main {
@@ -9,14 +10,24 @@ main {
     align-items: center;
 }
 
-#div-container {
-    align-content: center;
+#posts-wrapper {
     display: flex;
     flex-wrap: wrap;
     width: 800px;
+    align-content: center;
 }
 
-.post-wrapper {
+.post-editor-card {
+    display: none;
+    height: 500px;
+    width: 800px;
+    background-color: white;
+    margin: 0 0 1em 0;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.post-card {
     background-color: white;
     width: 100%;
     margin: 0 0 1em 0;
@@ -26,7 +37,7 @@ main {
     transition: 0.3s;
 }
 
-.post-wrapper:hover {
+.post-card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
@@ -109,6 +120,7 @@ main {
 
 .btn-container {
     width: 800px;
+    margin-bottom: 1em;
     display: flex;
     justify-content: space-around;
 }
@@ -116,7 +128,6 @@ main {
 .btn {
     width: 150px;
     padding: 5px;
-    margin-bottom: 10px;
     font-weight: 700;
     font-size: medium;
     text-align: center;
@@ -133,6 +144,25 @@ main {
     cursor: pointer;
 }
 
+.btn2 {
+    width: 150px;
+    padding: 5px;
+    font-weight: 700;
+    font-size: medium;
+    text-align: center;
+    border-radius: 50px;
+    transition: 0.3s;
+    background-color: purple;
+    color: white;
+}
+
+.btn2:hover {
+    background-color: white;
+    color: purple;
+    outline: 1px solid purple;
+    cursor: pointer;
+}
+
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
@@ -144,6 +174,7 @@ main {
 }
 
 @media only screen and (max-width: 850px) {
-    #div-container { width: 95vw; }
+    #posts-wrapper { width: 95vw; }
+    .post-editor-card { width: 95vw; }
     .btn-container { width: 95vw; }
 }
