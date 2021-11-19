@@ -1,46 +1,46 @@
-function getContainerElement(commentID) {
-    const container = document.createElement('article');
-    container.id = `comment-container${commentID}`;
-    container.className = 'comment-container';
+function getContainerElement(cmntID) {
+    const container = document.createElement('section');
+    container.className = 'cmnt-wrapper';
+    container.id = `cmnt-wrapper${cmntID}`;
     return container;
 }
 
 function getTitleElement(titleContent) {
     const title = document.createElement('h1');
-    title.className = 'comment-title';
+    title.className = 'cmnt-wrapper__title';
     title.innerHTML = titleContent;
     return title;
 }
 
 function getParagraphElement(paragraphContent) {
     const paragraph = document.createElement('p');
-    paragraph.className = 'comment-content';
+    paragraph.className = 'cmnt-wrapper__content';
     paragraph.innerHTML = paragraphContent;
     return paragraph;
 }
 
 function getEmailElement(emailContent) {
     const email = document.createElement('span');
-    email.className = 'comment-email';
+    email.className = 'cmnt-wrapper__email';
     email.innerHTML = emailContent;
     return email;
 }
 
 function getFooterElement(footerContent) {
     const footer = document.createElement('footer');
-    footer.className = 'comment-footer';
+    footer.className = 'comnt-wrapper__footer';
     footer.innerHTML = footerContent;
     return footer;
 }
 
-function writeComment(comment, destination) {
+function writeCmnt(cmnt, destination) {
     
-    const container = getContainerElement(comment.id);
+    const container = getContainerElement(cmnt.id);
     
-    container.appendChild(getTitleElement(comment.name));
-    container.appendChild(getEmailElement(comment.email));
-    container.appendChild(getParagraphElement(comment.body));
+    container.appendChild(getTitleElement(cmnt.name));
+    container.appendChild(getEmailElement(cmnt.email));
+    container.appendChild(getParagraphElement(cmnt.body));
     destination.appendChild(container);
 }
 
-export default writeComment;
+export default writeCmnt;

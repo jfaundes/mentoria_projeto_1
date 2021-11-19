@@ -1,81 +1,81 @@
-import writeComment from "./comment.js";
+import writeCmnt from "./comment.js";
 
 function getWrapper() {
     const wrapper = document.createElement('div');
-    wrapper.className = 'post-card';
+    wrapper.className = 'card';
     return wrapper;
 }
 
 function getContainer(postID) {
     const container = document.createElement('article');
-    container.id = `container-post${postID}`;
-    container.className = 'post-container';
+    container.className = 'card__post-wrapper';
+    container.id = `card__post-wrapper${postID}`;
     return container;
 }
 
 function getTitle(titleContent) {
     const title = document.createElement('h1');
-    title.className = 'post-title';
+    title.className = 'card__post-title';
     title.innerHTML = titleContent;
     return title;
 }
 
 function getParagraph(paragraphContent) {
     const paragraph = document.createElement('p');
-    paragraph.className = 'post-content';
+    paragraph.className = 'card__post-content';
     paragraph.innerHTML = paragraphContent;
     return paragraph;
 }
 
 function getFooter() {
     const footer = document.createElement('footer');
-    footer.className = 'post-footer noselect';
+    footer.className = 'card__post-footer noselect';
     footer.innerHTML = 'Mostrar Comentários';
     return footer;
 }
 
-function getCommentWrapper() {
-    const commentWrapper = document.createElement('div');
-    commentWrapper.className = 'comment-wrapper';
-    commentWrapper.style.display = 'none';
+function getCmntWrapper() {
+    const cmntWrapper = document.createElement('div');
+    cmntWrapper.className = 'card__cmnts-container';
+    cmntWrapper.style.display = 'none';
 
     const title = document.createElement('h1');
-    title.className = 'comment-wrapper-title';
+    title.className = 'card__cmnt-container__title';
     title.innerHTML = 'Comentários: ';
 
-    commentWrapper.appendChild(title);
+    cmntWrapper.appendChild(title);
 
-    return commentWrapper;
+    return cmntWrapper;
 }
 
 function postSetup(post, destination) {
     const postWrapper = getWrapper();
     const postContainer = getContainer(post.id);
-    const commentWrapper = getCommentWrapper();
-    let hasCommentsCache = false;
-    let showComments = true;
+    const cmntWrapper = getCmntWrapper();
+    let hasCmntsCache = false;
+    let showCmnts = true;
     
     const footer = getFooter();
-    footer.addEventListener('click', () => commentsHandler(post.id, commentWrapper));
+    footer.addEventListener('click', () => cmntsHandler(post.id, cmntWrapper));
 
-    async function commentsHandler(id) {
-        if (!hasCommentsCache) {
+    async function cmntsHandler(id) {
+        if (!hasCmntsCache) {
             const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`);
-            const commentArray = await response.json();
+            const cmntArray = await response.json();
 
-            commentArray.map(comment => writeComment(comment, commentWrapper));
+            cmntArray.map(cmnt => writeCmnt(cmnt, cmntWrapper));
 
-            hasCommentsCache = true;
-        }''
+            hasCmntsCache = true;
+        }
     
-        if (!showComments) {
-            commentWrapper.style.display = 'none';
+        if (!showCmnts) {
+            cmntWrapper.style.display = 'none';
             footer.innerHTML = 'Mostrar Comentários';
-            showComments = true;
+            showCmnts = true;
         } else {
-            commentWrapper.style.display = '';
+            cmntWrapper.style.display = '';
             footer.innerHTML = 'Esconder Comentários';
-            showComments = false;
+            showCmnts = false;
         }
     }
     
@@ -84,7 +84,7 @@ function postSetup(post, destination) {
     postContainer.appendChild(footer);
 
     postWrapper.appendChild(postContainer);
-    postWrapper.appendChild(commentWrapper);
+    postWrapper.appendChild(cmntWrapper);
 
     destination.appendChild(postWrapper);
 }

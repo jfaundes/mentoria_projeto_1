@@ -14,14 +14,21 @@
 </head>
 
 <body>
-    <main id="main">
-        <h1>Mentoria - Projeto 1 - Posts</h1>
-        <div class="btn-container">
-            <div id="load-five-btn" class="btn noselect">Load 5 New Posts</div>
-            <div id="new-post-btn" class="btn noselect">New Post</div>
+    <main>
+        <header class="header">
+            <h1 class="header__title">Mentoria - Projeto 1 - Posts</h1>
+            <div class="header__btn-container">
+                <div class="header__btn noselect" id="load-five-btn">Load 5 New Posts</div>
+                <div class="header__btn noselect" id="new-post-btn">New Post</div>
+            </div>
+        </header>
+        <div class="post-editor" id="new-post">
+            <label class="post-editor__input-label" for="title-input">Digite seu nome:</label>
+            <input class="post-editor__input" type="text" id="title-input"/>
+            <div class="post-editor__btn" id="submit-btn-0">Enviar</div>
         </div>
-        <div id="new-post-card" class="post-editor-card"></div>
-        <div id="posts-wrapper"></div>
+        <section class="posts-container" id="posts-container">
+        </section>
     </main>
 
     <script src="script.js" type="module"></script>

@@ -4,10 +4,15 @@ import writePost from "./modules/postEditor.js";
 // Provavelmente descartar essas duas no futuro.
 const main = document.getElementById('main');
 
-const newPostEditorCard = document.getElementById('new-post-card');
-const postWrapper = document.getElementById("posts-wrapper");
+const newPostEditorCard = document.getElementById('new-post');
+const postWrapper = document.getElementById("posts-container");
+
 const loadFiveBtn = document.getElementById("load-five-btn");
 const newPostBtn = document.getElementById("new-post-btn");
+const submitBtn = document.getElementById("submit-btn-0");
+
+const titleInput = document.getElementById("title-input");
+
 const POSTS_URL = `https://jsonplaceholder.typicode.com/posts/`;
 let currentId = 0;
 let showNewPostEditor = false;
@@ -32,21 +37,24 @@ const printPosts = async nPosts => {
   }
 };
 
-const newPost = () => {
-  console.log("cliquei new post");
+const showNewPostCard = () => {
   if (showNewPostEditor) {
     newPostBtn.innerHTML = 'New Post'
-    newPostBtn.className = "btn noselect";
+    newPostBtn.className = "header__btn noselect";
     newPostEditorCard.style.display = "none";
     showNewPostEditor = false;
   } else {
     newPostBtn.innerHTML = 'Cancelar'
-    newPostBtn.className = "btn2 noselect";
+    newPostBtn.className = "header__btn--cancel noselect";
     newPostEditorCard.style.display = "block";
     showNewPostEditor = true;
   }
+
+
 }
 
+
+
 printPosts(10);
-newPostBtn.addEventListener("click", newPost)
+newPostBtn.addEventListener("click", showNewPostCard)
 loadFiveBtn.addEventListener("click", () => printPosts(5));
