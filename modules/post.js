@@ -1,16 +1,16 @@
 import writeCmnt from "./comment.js";
 
-function getWrapper() {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'card';
-    return wrapper;
+function getCard() {
+    const card = document.createElement('div');
+    card.className = 'card';
+    return card;
 }
 
-function getContainer(postID) {
-    const container = document.createElement('article');
-    container.className = 'card__post-wrapper';
-    container.id = `card__post-wrapper${postID}`;
-    return container;
+function getWrapper(postID) {
+    const wrapper = document.createElement('article');
+    wrapper.className = 'card__post-wrapper';
+    wrapper.id = `card__post-wrapper${postID}`;
+    return wrapper;
 }
 
 function getTitle(titleContent) {
@@ -49,12 +49,12 @@ function getCmntWrapper() {
 }
 
 function postSetup(post, destination) {
-    const postWrapper = getWrapper();
-    const postContainer = getContainer(post.id);
+    const postCard = getCard();
+    const postWrapper = getWrapper(post.id);
     const cmntWrapper = getCmntWrapper();
     let hasCmntsCache = false;
     let showCmnts = true;
-    
+
     const footer = getFooter();
     footer.addEventListener('click', () => cmntsHandler(post.id, cmntWrapper));
 
@@ -67,7 +67,7 @@ function postSetup(post, destination) {
 
             hasCmntsCache = true;
         }
-    
+
         if (!showCmnts) {
             cmntWrapper.style.display = 'none';
             footer.innerHTML = 'Mostrar Comentários';
@@ -78,15 +78,15 @@ function postSetup(post, destination) {
             showCmnts = false;
         }
     }
-    
-    postContainer.appendChild(getTitle(post.title));
-    postContainer.appendChild(getParagraph(post.body));
-    postContainer.appendChild(footer);
 
-    postWrapper.appendChild(postContainer);
-    postWrapper.appendChild(cmntWrapper);
+    postWrapper.appendChild(getTitle(post.title));
+    postWrapper.appendChild(getParagraph(post.body));
+    postWrapper.appendChild(footer);
 
-    destination.appendChild(postWrapper);
+    postCard.appendChild(postWrapper);
+    postCard.appendChild(cmntWrapper);
+
+    destination.appendChild(postCard);
 }
 
 export default postSetup;

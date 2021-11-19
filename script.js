@@ -1,17 +1,12 @@
 import postSetup from "./modules/post.js";
-import writePost from "./modules/postEditor.js";
+import { writePostEditorWrapper } from "./modules/postEditor.js";
 
-// Provavelmente descartar essas duas no futuro.
-const main = document.getElementById('main');
-
-const newPostEditorCard = document.getElementById('new-post');
-const postWrapper = document.getElementById("posts-container");
+const postsContainer = document.getElementById("posts-container");
+const newPostDiv = document.getElementById('new-post');
 
 const loadFiveBtn = document.getElementById("load-five-btn");
 const newPostBtn = document.getElementById("new-post-btn");
 const submitBtn = document.getElementById("submit-btn-0");
-
-const titleInput = document.getElementById("title-input");
 
 const POSTS_URL = `https://jsonplaceholder.typicode.com/posts/`;
 let currentId = 0;
@@ -28,7 +23,7 @@ const printPosts = async nPosts => {
   try {
     const postsArray = await postsPromise;
     for (let i = 0; i < nPosts; i++) {
-      postSetup(postsArray[currentId], postWrapper);
+      postSetup(postsArray[currentId], postsContainer);
       currentId++;
     }
   } catch (e) {
@@ -41,19 +36,17 @@ const showNewPostCard = () => {
   if (showNewPostEditor) {
     newPostBtn.innerHTML = 'New Post'
     newPostBtn.className = "header__btn noselect";
-    newPostEditorCard.style.display = "none";
+    newPostDiv.removeChild(document.querySelector('.post-editor__wrapper'));
+    newPostDiv.style.display = "none";
     showNewPostEditor = false;
   } else {
     newPostBtn.innerHTML = 'Cancelar'
     newPostBtn.className = "header__btn--cancel noselect";
-    newPostEditorCard.style.display = "block";
+    newPostDiv.appendChild(writePostEditorWrapper());
+    newPostDiv.style.display = "block";
     showNewPostEditor = true;
   }
-
-
 }
-
-
 
 printPosts(10);
 newPostBtn.addEventListener("click", showNewPostCard)

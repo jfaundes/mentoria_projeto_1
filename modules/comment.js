@@ -34,13 +34,12 @@ function getFooterElement(footerContent) {
 }
 
 function writeCmnt(cmnt, destination) {
-    
-    const container = getContainerElement(cmnt.id);
-    
-    container.appendChild(getTitleElement(cmnt.name));
-    container.appendChild(getEmailElement(cmnt.email));
-    container.appendChild(getParagraphElement(cmnt.body));
-    destination.appendChild(container);
+    const wrapper = getContainerElement(cmnt.id);
+
+    wrapper.appendChild(getTitleElement(cmnt.name));
+    wrapper.appendChild(getEmailElement(cmnt.email));
+    wrapper.appendChild(getParagraphElement(cmnt.body));
+    destination.appendChild(wrapper);
 }
 
 export default writeCmnt;
