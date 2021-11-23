@@ -151,9 +151,12 @@ main {
     color: rgb(82, 82, 82);
 }
 
-.card__post-footer {
-    display: inline-block;
-    align-self: end;
+.card__post-btns-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card__post-btn {
     margin-top: 1em;
     cursor: pointer;
     font-size: small;
@@ -220,7 +223,7 @@ main {
 }
 
 @media only screen and (max-width: 850px) {
-    #posts-wrapper { width: 95vw; }
+    #posts-container { width: 95vw; }
     .post-editor { width: 95vw; }
     .header__btn-container { width: 95vw; }
 }

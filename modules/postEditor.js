@@ -46,7 +46,7 @@ function getPostContentInput(contentInputContent) {
 
 function getPostEditorBtn() {
     const postEditorBtn = document.createElement('div');
-    postEditorBtn.className = 'post-editor__btn';
+    postEditorBtn.className = 'post-editor__btn noselect';
     postEditorBtn.innerHTML = 'Enviar';
     return postEditorBtn;
 }

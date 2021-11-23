@@ -1,22 +1,15 @@
+import { getAllPosts } from "./events/getAllPosts.js";
 import postSetup from "./modules/post.js";
 import { writePostEditorWrapper } from "./modules/postEditor.js";
 
 const postsContainer = document.getElementById("posts-container");
 const newPostDiv = document.getElementById('new-post');
-
 const loadFiveBtn = document.getElementById("load-five-btn");
 const newPostBtn = document.getElementById("new-post-btn");
-const submitBtn = document.getElementById("submit-btn-0");
 
-const POSTS_URL = `https://jsonplaceholder.typicode.com/posts/`;
 let currentId = 0;
 let showNewPostEditor = false;
 
-const getAllPosts = async () => {
-  const response = await fetch(POSTS_URL);
-  const posts = await response.json();
-  return posts;
-};
 const postsPromise = getAllPosts();
 
 const printPosts = async nPosts => {

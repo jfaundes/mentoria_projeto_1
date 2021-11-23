@@ -1,3 +1,5 @@
+import { writePostEditorWrapper } from "./postEditor.js";
+import { getCmnts } from "../events/getCmnts.js";
 import writeCmnt from "./comment.js";
 
 function getCard() {
@@ -27,11 +29,26 @@ function getParagraph(paragraphContent) {
     return paragraph;
 }
 
-function getFooter() {
-    const footer = document.createElement('footer');
-    footer.className = 'card__post-footer noselect';
-    footer.innerHTML = 'Mostrar Comentários';
-    return footer;
+function getBtnsContainer() {
+    const btnsContainer = document.createElement('div');
+    btnsContainer.className = 'card__post-btns-container';
+    return btnsContainer;
+}
+
+function getShowCmntsBtn() {
+    const showComntsBtn = document.createElement('div');
+    showComntsBtn.className = 
+        'card__post-btn noselect';
+    showComntsBtn.innerHTML = 'Mostrar Comentários';
+    return showComntsBtn;
+}
+
+function getEditPostBtn() {
+    const editPostBtn = document.createElement('div');
+    editPostBtn.className =
+        'card__post-btn noselect';
+    editPostBtn.innerHTML = 'Editar Post';
+    return editPostBtn;
 }
 
 function getCmntWrapper() {
@@ -52,16 +69,20 @@ function postSetup(post, destination) {
     const postCard = getCard();
     const postWrapper = getWrapper(post.id);
     const cmntWrapper = getCmntWrapper();
+    const btnsContainer = getBtnsContainer();
+
     let hasCmntsCache = false;
     let showCmnts = true;
 
-    const footer = getFooter();
-    footer.addEventListener('click', () => cmntsHandler(post.id, cmntWrapper));
+    const editPostBtn = getEditPostBtn();
+    // Inserir funcionalidade do editPostBtn;
+
+    const showCmntsBtn = getShowCmntsBtn();
+    showCmntsBtn.addEventListener('click', () => cmntsHandler(post.id, cmntWrapper));
 
     async function cmntsHandler(id) {
         if (!hasCmntsCache) {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`);
-            const cmntArray = await response.json();
+            const cmntArray = await getCmnts(id);
 
             cmntArray.map(cmnt => writeCmnt(cmnt, cmntWrapper));
 
@@ -70,18 +91,21 @@ function postSetup(post, destination) {
 
         if (!showCmnts) {
             cmntWrapper.style.display = 'none';
-            footer.innerHTML = 'Mostrar Comentários';
+            showCmntsBtn.innerHTML = 'Mostrar Comentários';
             showCmnts = true;
         } else {
             cmntWrapper.style.display = '';
-            footer.innerHTML = 'Esconder Comentários';
+            showCmntsBtn.innerHTML = 'Esconder Comentários';
             showCmnts = false;
         }
     }
 
+    btnsContainer.appendChild(showCmntsBtn);
+    btnsContainer.appendChild(editPostBtn);
+
     postWrapper.appendChild(getTitle(post.title));
     postWrapper.appendChild(getParagraph(post.body));
-    postWrapper.appendChild(footer);
+    postWrapper.appendChild(btnsContainer);
 
     postCard.appendChild(postWrapper);
     postCard.appendChild(cmntWrapper);
