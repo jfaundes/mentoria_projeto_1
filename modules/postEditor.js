@@ -44,6 +44,12 @@ function getPostContentInput(contentInputContent) {
     return postContentLabel;
 }
 
+function getBtnsContainer() {
+    const btnsContainer = document.createElement('div');
+    btnsContainer.className = 'post-editor__btns-container';
+    return btnsContainer;
+}
+
 function getPostEditorBtn() {
     const postEditorBtn = document.createElement('div');
     postEditorBtn.className = 'post-editor__btn noselect';
@@ -51,12 +57,25 @@ function getPostEditorBtn() {
     return postEditorBtn;
 }
 
+function getCancelEdtBtn() {
+    const cancelEdtBtn = document.createElement('div');
+    cancelEdtBtn.className = 'post-editor__btn noselect';
+    cancelEdtBtn.innerHTML = 'Cancelar';
+    return cancelEdtBtn;
+}
+
 export function writePostEditorWrapper(post) {
     post = post || { id: 0 };
 
+    const btnsContainer = getBtnsContainer();
+    btnsContainer.appendChild(getPostEditorBtn());
+    btnsContainer.appendChild(getCancelEdtBtn(0));
+
+
     const newPostEditorWrapper = getPostEditorWrapper(post.id);
     newPostEditorWrapper.appendChild(getPostTitleInput(post.title));
-    newPostEditorWrapper.appendChild(getPostContentInput(post.content));
-    newPostEditorWrapper.appendChild(getPostEditorBtn());
+    newPostEditorWrapper.appendChild(getPostContentInput(post.body));
+    newPostEditorWrapper.appendChild(btnsContainer);
+
     return newPostEditorWrapper;
 }

@@ -34,7 +34,7 @@ const showNewPostCard = () => {
     showNewPostEditor = false;
   } else {
     newPostBtn.innerHTML = 'Cancelar'
-    newPostBtn.className = "header__btn--cancel noselect";
+    newPostBtn.className = "header__btn header__btn--cancel noselect";
     newPostDiv.appendChild(writePostEditorWrapper());
     newPostDiv.style.display = "block";
     showNewPostEditor = true;

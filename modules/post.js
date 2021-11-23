@@ -65,6 +65,16 @@ function getCmntWrapper() {
     return cmntWrapper;
 }
 
+function togglePostEdtr(showPostEdtr, postEditorWrapper) {
+    if (showPostEdtr.value) {
+        postEditorWrapper.style.display = 'none';
+        showPostEdtr.value = false;
+    } else {
+        postEditorWrapper.style.display = '';
+        showPostEdtr.value = true;
+    }
+}
+
 function postSetup(post, destination) {
     const postCard = getCard();
     const postWrapper = getWrapper(post.id);
@@ -72,10 +82,17 @@ function postSetup(post, destination) {
     const btnsContainer = getBtnsContainer();
 
     let hasCmntsCache = false;
-    let showCmnts = true;
+    let showCmnts = false;
+    let showPostEdtr = {value: false};
+
+    const postEditorWrapper = writePostEditorWrapper(post);
+    postEditorWrapper.style.display = 'none';
 
     const editPostBtn = getEditPostBtn();
-    // Inserir funcionalidade do editPostBtn;
+    editPostBtn.addEventListener(
+        'click',
+        () => togglePostEdtr(showPostEdtr, postEditorWrapper)
+    );
 
     const showCmntsBtn = getShowCmntsBtn();
     showCmntsBtn.addEventListener('click', () => cmntsHandler(post.id, cmntWrapper));
@@ -83,19 +100,17 @@ function postSetup(post, destination) {
     async function cmntsHandler(id) {
         if (!hasCmntsCache) {
             const cmntArray = await getCmnts(id);
-
             cmntArray.map(cmnt => writeCmnt(cmnt, cmntWrapper));
-
             hasCmntsCache = true;
         }
 
         if (!showCmnts) {
-            cmntWrapper.style.display = 'none';
-            showCmntsBtn.innerHTML = 'Mostrar Comentários';
-            showCmnts = true;
-        } else {
             cmntWrapper.style.display = '';
             showCmntsBtn.innerHTML = 'Esconder Comentários';
+            showCmnts = true;
+        } else {
+            cmntWrapper.style.display = 'none';
+            showCmntsBtn.innerHTML = 'Mostrar Comentários';
             showCmnts = false;
         }
     }
@@ -108,6 +123,7 @@ function postSetup(post, destination) {
     postWrapper.appendChild(btnsContainer);
 
     postCard.appendChild(postWrapper);
+    postCard.appendChild(postEditorWrapper);
     postCard.appendChild(cmntWrapper);
 
     destination.appendChild(postCard);
