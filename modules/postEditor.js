@@ -1,10 +1,10 @@
-function getPostEditorWrapper(id) {
+function getPostEditorContainer(id) {
     id = id || 0;
 
-    const postEditorWrapper = document.createElement('div');
-    postEditorWrapper.className = 'post-editor__wrapper';
-    postEditorWrapper.id = `post-editor__wrapper${id}`;
-    return postEditorWrapper;
+    const postEditorContainer = document.createElement('div');
+    postEditorContainer.className = 'post-editor__container';
+    postEditorContainer.id = `post-editor__container${id}`;
+    return postEditorContainer;
 }
 
 function getPostTitleInput(titleInputContent) {
@@ -50,32 +50,48 @@ function getBtnsContainer() {
     return btnsContainer;
 }
 
-function getPostEditorBtn() {
+function getPostEditorBtn(id) {
     const postEditorBtn = document.createElement('div');
     postEditorBtn.className = 'post-editor__btn noselect';
+    postEditorBtn.id = `post-editor__edtr-btn${id}`;
     postEditorBtn.innerHTML = 'Enviar';
     return postEditorBtn;
 }
 
-function getCancelEdtBtn() {
+function getCancelEdtBtn(id) {
     const cancelEdtBtn = document.createElement('div');
     cancelEdtBtn.className = 'post-editor__btn noselect';
+    cancelEdtBtn.id = `post-editor__cancel-btn${id}`;
     cancelEdtBtn.innerHTML = 'Cancelar';
     return cancelEdtBtn;
 }
 
-export function writePostEditorWrapper(post) {
+function cancelEdt(id, showPostEdtr, newPostEditorContainer) {
+    const editorWrapper = document.getElementById(`post-editor__wrapper${id}`);
+    editorWrapper.removeChild(newPostEditorContainer);
+    showPostEdtr.value = false;
+
+    if(id == 0) {
+        const headerCancelBtn = document.getElementById('new-post-btn');
+        headerCancelBtn.innerHTML = 'New Post';
+        headerCancelBtn.className = 'header__btn noselect';
+    }
+}
+
+export function writePostEditorContainer(post, showPostEdtr) {
     post = post || { id: 0 };
+    const newPostEditorContainer = getPostEditorContainer(post.id);
+
+    const cancelEdtBtn = getCancelEdtBtn(post.id);
+    cancelEdtBtn.addEventListener('click', () => cancelEdt(post.id, showPostEdtr, newPostEditorContainer));
 
     const btnsContainer = getBtnsContainer();
-    btnsContainer.appendChild(getPostEditorBtn());
-    btnsContainer.appendChild(getCancelEdtBtn(0));
+    btnsContainer.appendChild(getPostEditorBtn(post.id));
+    btnsContainer.appendChild(cancelEdtBtn);
 
+    newPostEditorContainer.appendChild(getPostTitleInput(post.title));
+    newPostEditorContainer.appendChild(getPostContentInput(post.body));
+    newPostEditorContainer.appendChild(btnsContainer);
 
-    const newPostEditorWrapper = getPostEditorWrapper(post.id);
-    newPostEditorWrapper.appendChild(getPostTitleInput(post.title));
-    newPostEditorWrapper.appendChild(getPostContentInput(post.body));
-    newPostEditorWrapper.appendChild(btnsContainer);
-
-    return newPostEditorWrapper;
+    return newPostEditorContainer;
 }

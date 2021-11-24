@@ -1,4 +1,4 @@
-import { writePostEditorWrapper } from "./postEditor.js";
+import { writePostEditorContainer } from "./postEditor.js";
 import { getCmnts } from "../events/getCmnts.js";
 import writeCmnt from "./comment.js";
 
@@ -65,12 +65,21 @@ function getCmntWrapper() {
     return cmntWrapper;
 }
 
-function togglePostEdtr(showPostEdtr, postEditorWrapper) {
+function getPostEdtrWrapper(id) {
+    const postEdtrWrapper = document.createElement('div');
+    postEdtrWrapper.className = 'post-editor__wrapper';
+    postEdtrWrapper.id = `post-editor__wrapper${id}`
+    return postEdtrWrapper;
+}
+
+function togglePostEdtr(post, showPostEdtr, postEdtrWrapper) {
     if (showPostEdtr.value) {
-        postEditorWrapper.style.display = 'none';
+        const postEditorContainer = document.getElementById(`post-editor__container${post.id}`)
+        postEdtrWrapper.removeChild(postEditorContainer);
         showPostEdtr.value = false;
     } else {
-        postEditorWrapper.style.display = '';
+        const postEditorContainer = writePostEditorContainer(post, showPostEdtr);
+        postEdtrWrapper.appendChild(postEditorContainer);
         showPostEdtr.value = true;
     }
 }
@@ -79,19 +88,17 @@ function postSetup(post, destination) {
     const postCard = getCard();
     const postWrapper = getWrapper(post.id);
     const cmntWrapper = getCmntWrapper();
+    const postEdtrWrapper = getPostEdtrWrapper(post.id);
     const btnsContainer = getBtnsContainer();
 
     let hasCmntsCache = false;
     let showCmnts = false;
     let showPostEdtr = {value: false};
 
-    const postEditorWrapper = writePostEditorWrapper(post);
-    postEditorWrapper.style.display = 'none';
-
     const editPostBtn = getEditPostBtn();
     editPostBtn.addEventListener(
         'click',
-        () => togglePostEdtr(showPostEdtr, postEditorWrapper)
+        () => togglePostEdtr(post, showPostEdtr, postEdtrWrapper)
     );
 
     const showCmntsBtn = getShowCmntsBtn();
@@ -104,14 +111,14 @@ function postSetup(post, destination) {
             hasCmntsCache = true;
         }
 
-        if (!showCmnts) {
-            cmntWrapper.style.display = '';
-            showCmntsBtn.innerHTML = 'Esconder Comentários';
-            showCmnts = true;
-        } else {
+        if (showCmnts) {
             cmntWrapper.style.display = 'none';
             showCmntsBtn.innerHTML = 'Mostrar Comentários';
             showCmnts = false;
+        } else {
+            cmntWrapper.style.display = '';
+            showCmntsBtn.innerHTML = 'Esconder Comentários';
+            showCmnts = true;
         }
     }
 
@@ -123,7 +130,7 @@ function postSetup(post, destination) {
     postWrapper.appendChild(btnsContainer);
 
     postCard.appendChild(postWrapper);
-    postCard.appendChild(postEditorWrapper);
+    postCard.appendChild(postEdtrWrapper);
     postCard.appendChild(cmntWrapper);
 
     destination.appendChild(postCard);

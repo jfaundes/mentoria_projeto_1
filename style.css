@@ -62,8 +62,7 @@ main {
     cursor: pointer;
 }
 
-.post-editor {
-    display: none;
+.new-post-wrapper {
     width: 800px;
     background-color: white;
     margin: 0 0 1em 0;
@@ -71,7 +70,7 @@ main {
     border-radius: 5px;
 }
 
-.post-editor__wrapper {
+.post-editor__container {
     padding: 1em;
 }
 
