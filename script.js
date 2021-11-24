@@ -27,13 +27,19 @@ const printPosts = async nPosts => {
 
 const showNewPostCard = () => {
   if (showNewPostEditor.value) {
-    const postEdtrContainer = document.getElementById(`post-editor__container${0}`);
+    const postEdtrContainer = document.getElementById(
+      `post-editor__container${0}`
+    );
     newPostBtn.innerHTML = 'New Post';
     newPostBtn.className = "header__btn noselect";
     newPostDiv.removeChild(postEdtrContainer);
     showNewPostEditor.value = false;
   } else {
-    const postEdtrContainer = writePostEditorContainer(null, showNewPostEditor, newPostDiv);
+    const postEdtrContainer = writePostEditorContainer(
+      null, 
+      showNewPostEditor,
+      newPostDiv
+    );
     newPostBtn.innerHTML = 'Cancelar'
     newPostBtn.className = "header__btn header__btn--cancel noselect";
     newPostDiv.appendChild(postEdtrContainer);

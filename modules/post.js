@@ -74,12 +74,20 @@ function getPostEdtrWrapper(id) {
 
 function togglePostEdtr(post, showPostEdtr, postEdtrWrapper) {
     if (showPostEdtr.value) {
-        const postEditorContainer = document.getElementById(`post-editor__container${post.id}`)
+        // Esse primeiro if estará obsoleto quando clicar em editar sumir com o
+        // card wrapper.
+        const postEditorContainer = document.getElementById(
+            `post-editor__container${post.id}`
+        );
         postEdtrWrapper.removeChild(postEditorContainer);
         showPostEdtr.value = false;
     } else {
         const postEditorContainer = writePostEditorContainer(post, showPostEdtr);
         postEdtrWrapper.appendChild(postEditorContainer);
+        
+        const postWrapper = document.getElementById(`card__post-wrapper${post.id}`);
+        postWrapper.style.display = 'none';
+
         showPostEdtr.value = true;
     }
 }
@@ -102,7 +110,10 @@ function postSetup(post, destination) {
     );
 
     const showCmntsBtn = getShowCmntsBtn();
-    showCmntsBtn.addEventListener('click', () => cmntsHandler(post.id, cmntWrapper));
+    showCmntsBtn.addEventListener(
+        'click', 
+        () => cmntsHandler(post.id, cmntWrapper)
+    );
 
     async function cmntsHandler(id) {
         if (!hasCmntsCache) {

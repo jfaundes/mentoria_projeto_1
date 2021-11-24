@@ -1,4 +1,4 @@
-// import { postNewPost } from "../events/postNewPost";
+import { postNewPost } from "../events/postNewPost.js";
 
 function getPostEditorContainer(id) {
     id = id || 0;
@@ -88,10 +88,13 @@ function cancelEdt(id, showPostEdtr, newPostEditorContainer) {
     editorWrapper.removeChild(newPostEditorContainer);
     showPostEdtr.value = false;
 
-    if (id == 0) {
+    if (id === 0) {
         const headerCancelBtn = document.getElementById('new-post-btn');
         headerCancelBtn.innerHTML = 'New Post';
         headerCancelBtn.className = 'header__btn noselect';
+    } else {
+        const postWrapper = document.getElementById(`card__post-wrapper${id}`);
+        postWrapper.style.display = '';
     }
 }
 
@@ -101,7 +104,11 @@ export function writePostEditorContainer(post, showPostEdtr) {
     const newPostEditorContainer = getPostEditorContainer(post.id);
 
     const cancelEdtBtn = getCancelEdtBtn(post.id);
-    cancelEdtBtn.addEventListener('click', () => cancelEdt(post.id, showPostEdtr, newPostEditorContainer));
+    cancelEdtBtn.addEventListener('click', () => cancelEdt(
+        post.id, 
+        showPostEdtr, 
+        newPostEditorContainer
+    ));
 
     const submitEdtBtn = getSubmitEdtBtn(post.id);
     submitEdtBtn.addEventListener('click', () => {
@@ -109,6 +116,7 @@ export function writePostEditorContainer(post, showPostEdtr) {
 
         if (newPostContent.id === 0) {
             try {
+                console.log('entrei aqui');
                 postNewPost(newPostContent);
             } catch (error) {
                 console.log('Erro ao postar novo post:', error);
