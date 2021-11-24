@@ -72,24 +72,12 @@ function getPostEdtrWrapper(id) {
     return postEdtrWrapper;
 }
 
-function togglePostEdtr(post, showPostEdtr, postEdtrWrapper) {
-    if (showPostEdtr.value) {
-        // Esse primeiro if estará obsoleto quando clicar em editar sumir com o
-        // card wrapper.
-        const postEditorContainer = document.getElementById(
-            `post-editor__container${post.id}`
-        );
-        postEdtrWrapper.removeChild(postEditorContainer);
-        showPostEdtr.value = false;
-    } else {
-        const postEditorContainer = writePostEditorContainer(post, showPostEdtr);
-        postEdtrWrapper.appendChild(postEditorContainer);
-        
-        const postWrapper = document.getElementById(`card__post-wrapper${post.id}`);
-        postWrapper.style.display = 'none';
-
-        showPostEdtr.value = true;
-    }
+function togglePostEdtr(post, postEdtrWrapper) {
+    const postEditorContainer = writePostEditorContainer(post);
+    postEdtrWrapper.appendChild(postEditorContainer);
+    
+    const postWrapper = document.getElementById(`card__post-wrapper${post.id}`);
+    postWrapper.style.display = 'none';
 }
 
 function postSetup(post, destination) {
@@ -101,12 +89,11 @@ function postSetup(post, destination) {
 
     let hasCmntsCache = false;
     let showCmnts = false;
-    let showPostEdtr = { value: false };
 
     const editPostBtn = getEditPostBtn();
     editPostBtn.addEventListener(
         'click',
-        () => togglePostEdtr(post, showPostEdtr, postEdtrWrapper)
+        () => togglePostEdtr(post, postEdtrWrapper)
     );
 
     const showCmntsBtn = getShowCmntsBtn();

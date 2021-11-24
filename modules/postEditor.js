@@ -83,10 +83,9 @@ function getCancelEdtBtn(id) {
     return cancelEdtBtn;
 }
 
-function cancelEdt(id, showPostEdtr, newPostEditorContainer) {
+function cancelEdt(id, newPostEditorContainer) {
     const editorWrapper = document.getElementById(`post-editor__wrapper${id}`);
     editorWrapper.removeChild(newPostEditorContainer);
-    showPostEdtr.value = false;
 
     if (id === 0) {
         const headerCancelBtn = document.getElementById('new-post-btn');
@@ -98,7 +97,7 @@ function cancelEdt(id, showPostEdtr, newPostEditorContainer) {
     }
 }
 
-export function writePostEditorContainer(post, showPostEdtr) {
+export function writePostEditorContainer(post) {
     post = post || { id: 0 };
 
     const newPostEditorContainer = getPostEditorContainer(post.id);
@@ -106,7 +105,6 @@ export function writePostEditorContainer(post, showPostEdtr) {
     const cancelEdtBtn = getCancelEdtBtn(post.id);
     cancelEdtBtn.addEventListener('click', () => cancelEdt(
         post.id, 
-        showPostEdtr, 
         newPostEditorContainer
     ));
 

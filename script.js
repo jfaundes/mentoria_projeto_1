@@ -8,7 +8,6 @@ const loadFiveBtn = document.getElementById("load-five-btn");
 const newPostBtn = document.getElementById("new-post-btn");
 
 let currentId = 0;
-let showNewPostEditor = { value: false };
 
 const postsPromise = getAllPosts();
 
@@ -26,24 +25,21 @@ const printPosts = async nPosts => {
 };
 
 const showNewPostCard = () => {
-  if (showNewPostEditor.value) {
+  if (newPostDiv.childNodes.length !== 0) {
     const postEdtrContainer = document.getElementById(
       `post-editor__container${0}`
     );
     newPostBtn.innerHTML = 'New Post';
     newPostBtn.className = "header__btn noselect";
     newPostDiv.removeChild(postEdtrContainer);
-    showNewPostEditor.value = false;
   } else {
     const postEdtrContainer = writePostEditorContainer(
-      null, 
-      showNewPostEditor,
+      null,
       newPostDiv
     );
     newPostBtn.innerHTML = 'Cancelar'
     newPostBtn.className = "header__btn header__btn--cancel noselect";
     newPostDiv.appendChild(postEdtrContainer);
-    showNewPostEditor.value = true;
   }
 }
 
