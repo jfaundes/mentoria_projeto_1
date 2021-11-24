@@ -80,7 +80,8 @@ function togglePostEdtr(post, postEdtrWrapper) {
     postWrapper.style.display = 'none';
 }
 
-function postSetup(post, destination) {
+function postSetup(post) {
+    const postsContainer = document.getElementById("posts-container");
     const postCard = getCard();
     const postWrapper = getWrapper(post.id);
     const cmntWrapper = getCmntWrapper();
@@ -88,7 +89,6 @@ function postSetup(post, destination) {
     const btnsContainer = getBtnsContainer();
 
     let hasCmntsCache = false;
-    let showCmnts = false;
 
     const editPostBtn = getEditPostBtn();
     editPostBtn.addEventListener(
@@ -109,14 +109,12 @@ function postSetup(post, destination) {
             hasCmntsCache = true;
         }
 
-        if (showCmnts) {
-            cmntWrapper.style.display = 'none';
-            showCmntsBtn.innerHTML = 'Mostrar Comentários';
-            showCmnts = false;
-        } else {
+        if (cmntWrapper.style.display) {
             cmntWrapper.style.display = '';
             showCmntsBtn.innerHTML = 'Esconder Comentários';
-            showCmnts = true;
+        } else {
+            cmntWrapper.style.display = 'none';
+            showCmntsBtn.innerHTML = 'Mostrar Comentários';
         }
     }
 
@@ -131,7 +129,7 @@ function postSetup(post, destination) {
     postCard.appendChild(postEdtrWrapper);
     postCard.appendChild(cmntWrapper);
 
-    destination.appendChild(postCard);
+    postsContainer.appendChild(postCard);
 }
 
 export default postSetup;

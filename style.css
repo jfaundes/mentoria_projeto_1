@@ -83,6 +83,7 @@ main {
     display: block;
     padding-right: 8px;
     font-weight: 700;
+    color: rgb(49, 49, 49);
 }
 
 .post-editor__input {

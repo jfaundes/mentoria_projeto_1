@@ -2,7 +2,6 @@ import { getAllPosts } from "./events/getAllPosts.js";
 import postSetup from "./modules/post.js";
 import { writePostEditorContainer } from "./modules/postEditor.js";
 
-const postsContainer = document.getElementById("posts-container");
 const newPostDiv = document.getElementById(`post-editor__wrapper${0}`);
 const loadFiveBtn = document.getElementById("load-five-btn");
 const newPostBtn = document.getElementById("new-post-btn");
@@ -15,7 +14,7 @@ const printPosts = async nPosts => {
   try {
     const postsArray = await postsPromise;
     for (let i = 0; i < nPosts; i++) {
-      postSetup(postsArray[currentId], postsContainer);
+      postSetup(postsArray[currentId]);
       currentId++;
     }
   } catch (e) {
@@ -24,7 +23,7 @@ const printPosts = async nPosts => {
   }
 };
 
-const showNewPostCard = () => {
+export const showNewPostCard = () => {
   if (newPostDiv.childNodes.length !== 0) {
     const postEdtrContainer = document.getElementById(
       `post-editor__container${0}`
@@ -43,6 +42,6 @@ const showNewPostCard = () => {
   }
 }
 
-printPosts(10);
+printPosts(2);
 newPostBtn.addEventListener("click", showNewPostCard)
 loadFiveBtn.addEventListener("click", () => printPosts(5));
