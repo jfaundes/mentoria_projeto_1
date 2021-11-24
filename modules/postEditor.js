@@ -1,3 +1,5 @@
+// import { postNewPost } from "../events/postNewPost";
+
 function getPostEditorContainer(id) {
     id = id || 0;
 
@@ -7,18 +9,19 @@ function getPostEditorContainer(id) {
     return postEditorContainer;
 }
 
-function getPostTitleInput(titleInputContent) {
+function getPostTitleInput(id, titleInputContent) {
     titleInputContent = titleInputContent || '';
 
     const postTitleLabel = document.createElement('label');
     postTitleLabel.className = 'post-editor__label';
-    postTitleLabel.for = 'title-input';
+    postTitleLabel.id = `post-editor__label--title${id}`;
+    postTitleLabel.for = `title-input${id}`;
     postTitleLabel.innerHTML = 'Título do Post: ';
 
     const postTitleInput = document.createElement('input');
     postTitleInput.className = 'post-editor__input';
     postTitleInput.type = 'text';
-    postTitleInput.id = 'title-input';
+    postTitleInput.id = `title-input${id}`;
     postTitleInput.value = titleInputContent;
     postTitleInput.placeholder = 'Título';
 
@@ -26,17 +29,18 @@ function getPostTitleInput(titleInputContent) {
     return postTitleLabel;
 }
 
-function getPostContentInput(contentInputContent) {
+function getPostContentInput(id, contentInputContent) {
     contentInputContent = contentInputContent || '';
 
     const postContentLabel = document.createElement('label');
     postContentLabel.className = 'post-editor__label';
+    postContentLabel.id = `post-editor__label--content${id}`;
     postContentLabel.for = 'content-input';
     postContentLabel.innerHTML = 'Conteúdo do Post: ';
 
     const postContentTextArea = document.createElement('textarea');
     postContentTextArea.className = 'post-editor__textarea';
-    postContentTextArea.id = 'content-textarea';
+    postContentTextArea.id = `content-textarea${id}`;
     postContentTextArea.value = contentInputContent;
     postContentTextArea.placeholder = 'Era uma vez...';
 
@@ -50,12 +54,25 @@ function getBtnsContainer() {
     return btnsContainer;
 }
 
-function getPostEditorBtn(id) {
+function getSubmitEdtBtn(id) {
     const postEditorBtn = document.createElement('div');
     postEditorBtn.className = 'post-editor__btn noselect';
     postEditorBtn.id = `post-editor__edtr-btn${id}`;
     postEditorBtn.innerHTML = 'Enviar';
     return postEditorBtn;
+}
+
+function getNewPostContent(id) {
+    const postTitleInput = document.getElementById(`title-input${id}`);
+    const postContentInput = document.getElementById(`content-textarea${id}`);
+    const newPostContent = {
+        userId: 1,
+        id: id,
+        title: postTitleInput.value,
+        body: postContentInput.value,
+    }
+    console.log(newPostContent);
+    return newPostContent;
 }
 
 function getCancelEdtBtn(id) {
@@ -71,7 +88,7 @@ function cancelEdt(id, showPostEdtr, newPostEditorContainer) {
     editorWrapper.removeChild(newPostEditorContainer);
     showPostEdtr.value = false;
 
-    if(id == 0) {
+    if (id == 0) {
         const headerCancelBtn = document.getElementById('new-post-btn');
         headerCancelBtn.innerHTML = 'New Post';
         headerCancelBtn.className = 'header__btn noselect';
@@ -80,17 +97,38 @@ function cancelEdt(id, showPostEdtr, newPostEditorContainer) {
 
 export function writePostEditorContainer(post, showPostEdtr) {
     post = post || { id: 0 };
+
     const newPostEditorContainer = getPostEditorContainer(post.id);
 
     const cancelEdtBtn = getCancelEdtBtn(post.id);
     cancelEdtBtn.addEventListener('click', () => cancelEdt(post.id, showPostEdtr, newPostEditorContainer));
 
+    const submitEdtBtn = getSubmitEdtBtn(post.id);
+    submitEdtBtn.addEventListener('click', () => {
+        const newPostContent = getNewPostContent(post.id);
+
+        if (newPostContent.id === 0) {
+            try {
+                postNewPost(newPostContent);
+            } catch (error) {
+                console.log('Erro ao postar novo post:', error);
+            }
+        } else {
+            try {
+                //updatePost(newPostContent);
+            } catch (error) {
+                console.log('Erro ao editar novo post:', error);
+            }
+        }
+    });
+
     const btnsContainer = getBtnsContainer();
-    btnsContainer.appendChild(getPostEditorBtn(post.id));
+    btnsContainer.appendChild(submitEdtBtn);
     btnsContainer.appendChild(cancelEdtBtn);
 
-    newPostEditorContainer.appendChild(getPostTitleInput(post.title));
-    newPostEditorContainer.appendChild(getPostContentInput(post.body));
+    newPostEditorContainer.appendChild(getPostTitleInput(post.id, post.title));
+    
+    newPostEditorContainer.appendChild(getPostContentInput(post.id, post.body));
     newPostEditorContainer.appendChild(btnsContainer);
 
     return newPostEditorContainer;

@@ -8,7 +8,7 @@ const loadFiveBtn = document.getElementById("load-five-btn");
 const newPostBtn = document.getElementById("new-post-btn");
 
 let currentId = 0;
-let showNewPostEditor = {value: false};
+let showNewPostEditor = { value: false };
 
 const postsPromise = getAllPosts();
 

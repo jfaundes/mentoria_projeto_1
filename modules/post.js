@@ -37,7 +37,7 @@ function getBtnsContainer() {
 
 function getShowCmntsBtn() {
     const showComntsBtn = document.createElement('div');
-    showComntsBtn.className = 
+    showComntsBtn.className =
         'card__post-btn noselect';
     showComntsBtn.innerHTML = 'Mostrar Comentários';
     return showComntsBtn;
@@ -93,7 +93,7 @@ function postSetup(post, destination) {
 
     let hasCmntsCache = false;
     let showCmnts = false;
-    let showPostEdtr = {value: false};
+    let showPostEdtr = { value: false };
 
     const editPostBtn = getEditPostBtn();
     editPostBtn.addEventListener(
