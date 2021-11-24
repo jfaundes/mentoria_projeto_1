@@ -23,7 +23,7 @@ const printPosts = async nPosts => {
   }
 };
 
-export const showNewPostCard = () => {
+const showNewPostCard = () => {
   if (newPostDiv.childNodes.length !== 0) {
     const postEdtrContainer = document.getElementById(
       `post-editor__container${0}`
@@ -45,3 +45,5 @@ export const showNewPostCard = () => {
 printPosts(2);
 newPostBtn.addEventListener("click", showNewPostCard)
 loadFiveBtn.addEventListener("click", () => printPosts(5));
+
+export {showNewPostCard};

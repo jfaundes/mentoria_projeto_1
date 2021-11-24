@@ -2,67 +2,75 @@ import { writePostEditorContainer } from "./postEditor.js";
 import { getCmnts } from "../events/getCmnts.js";
 import writeCmnt from "./comment.js";
 
-function getCard() {
+function getCard(id) {
     const card = document.createElement('div');
     card.className = 'card';
+    card.id = `card${id}`;
     return card;
 }
 
-function getWrapper(postID) {
+function getWrapper(id) {
     const wrapper = document.createElement('article');
     wrapper.className = 'card__post-wrapper';
-    wrapper.id = `card__post-wrapper${postID}`;
+    wrapper.id = `card__post-wrapper${id}`;
     return wrapper;
 }
 
-function getTitle(titleContent) {
+function getTitle(post) {
     const title = document.createElement('h1');
     title.className = 'card__post-title';
-    title.innerHTML = titleContent;
+    title.id = `card__post-title${post.id}`;
+    title.innerHTML = post.title;
     return title;
 }
 
-function getParagraph(paragraphContent) {
+function getParagraph(post) {
     const paragraph = document.createElement('p');
     paragraph.className = 'card__post-content';
-    paragraph.innerHTML = paragraphContent;
+    paragraph.id = `card__post-content${post.id}`;
+    paragraph.innerHTML = post.body;
     return paragraph;
 }
 
-function getBtnsContainer() {
+function getBtnsContainer(id) {
     const btnsContainer = document.createElement('div');
     btnsContainer.className = 'card__post-btns-container';
+    btnsContainer.id = `card__post-btns-container${id}`;
     return btnsContainer;
 }
 
-function getShowCmntsBtn() {
+function getShowCmntsBtn(id) {
     const showComntsBtn = document.createElement('div');
     showComntsBtn.className =
         'card__post-btn noselect';
+    showComntsBtn.id = `card__cmnts-post-btn${id}`;
     showComntsBtn.innerHTML = 'Mostrar Comentários';
     return showComntsBtn;
 }
 
-function getEditPostBtn() {
+function getEditPostBtn(id) {
     const editPostBtn = document.createElement('div');
     editPostBtn.className =
         'card__post-btn noselect';
+    editPostBtn.id = `card__edt-post-btn${id}`;
     editPostBtn.innerHTML = 'Editar Post';
     return editPostBtn;
 }
 
-function getCmntWrapper() {
-    const cmntWrapper = document.createElement('div');
-    cmntWrapper.className = 'card__cmnts-container';
-    cmntWrapper.style.display = 'none';
+function getCmntContainer(id) {
+    const cmntContainer = document.createElement('div');
+    cmntContainer.className = 'card__cmnts-container';
+    cmntContainer.id = `card__cmnts-container${id}`;
+    cmntContainer.style.display = 'none';
 
     const title = document.createElement('h1');
     title.className = 'card__cmnt-container__title';
+    title.id = `card__cmnt-container__title${id}`;
     title.innerHTML = 'Comentários: ';
 
-    cmntWrapper.appendChild(title);
+    cmntContainer.appendChild(title);
 
-    return cmntWrapper;
+    return cmntContainer;
 }
 
 function getPostEdtrWrapper(id) {
@@ -82,38 +90,38 @@ function togglePostEdtr(post, postEdtrWrapper) {
 
 function postSetup(post) {
     const postsContainer = document.getElementById("posts-container");
-    const postCard = getCard();
+    const postCard = getCard(post.id);
     const postWrapper = getWrapper(post.id);
-    const cmntWrapper = getCmntWrapper();
+    const cmntContainer = getCmntContainer(post.id);
     const postEdtrWrapper = getPostEdtrWrapper(post.id);
-    const btnsContainer = getBtnsContainer();
+    const btnsContainer = getBtnsContainer(post.id);
 
     let hasCmntsCache = false;
 
-    const editPostBtn = getEditPostBtn();
+    const editPostBtn = getEditPostBtn(post.id);
     editPostBtn.addEventListener(
         'click',
         () => togglePostEdtr(post, postEdtrWrapper)
     );
 
-    const showCmntsBtn = getShowCmntsBtn();
+    const showCmntsBtn = getShowCmntsBtn(post.id);
     showCmntsBtn.addEventListener(
         'click', 
-        () => cmntsHandler(post.id, cmntWrapper)
+        () => cmntsHandler(post.id, cmntContainer)
     );
 
     async function cmntsHandler(id) {
         if (!hasCmntsCache) {
             const cmntArray = await getCmnts(id);
-            cmntArray.map(cmnt => writeCmnt(cmnt, cmntWrapper));
+            cmntArray.map(cmnt => writeCmnt(cmnt, cmntContainer));
             hasCmntsCache = true;
         }
 
-        if (cmntWrapper.style.display) {
-            cmntWrapper.style.display = '';
+        if (cmntContainer.style.display) {
+            cmntContainer.style.display = '';
             showCmntsBtn.innerHTML = 'Esconder Comentários';
         } else {
-            cmntWrapper.style.display = 'none';
+            cmntContainer.style.display = 'none';
             showCmntsBtn.innerHTML = 'Mostrar Comentários';
         }
     }
@@ -121,15 +129,15 @@ function postSetup(post) {
     btnsContainer.appendChild(showCmntsBtn);
     btnsContainer.appendChild(editPostBtn);
 
-    postWrapper.appendChild(getTitle(post.title));
-    postWrapper.appendChild(getParagraph(post.body));
+    postWrapper.appendChild(getTitle(post));
+    postWrapper.appendChild(getParagraph(post));
     postWrapper.appendChild(btnsContainer);
 
     postCard.appendChild(postWrapper);
     postCard.appendChild(postEdtrWrapper);
-    postCard.appendChild(cmntWrapper);
+    postCard.appendChild(cmntContainer);
 
-    postsContainer.appendChild(postCard);
+    postsContainer.prepend(postCard);
 }
 
 export default postSetup;
