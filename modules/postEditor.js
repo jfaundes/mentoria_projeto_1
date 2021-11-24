@@ -58,7 +58,13 @@ function getSubmitEdtBtn(id) {
     const postEditorBtn = document.createElement('div');
     postEditorBtn.className = 'post-editor__btn noselect';
     postEditorBtn.id = `post-editor__edtr-btn${id}`;
-    postEditorBtn.innerHTML = 'Enviar';
+
+    if (id === 0) {
+        postEditorBtn.innerHTML = 'Publicar';
+    } else {
+        postEditorBtn.innerHTML = 'Salvar Alteração';
+    }
+    
     return postEditorBtn;
 }
 
