@@ -77,7 +77,6 @@ function getNewPostContent(id) {
         title: postTitleInput.value,
         body: postContentInput.value,
     }
-    console.log(newPostContent);
     return newPostContent;
 }
 
@@ -120,7 +119,6 @@ export function writePostEditorContainer(post) {
 
         if (newPostContent.id === 0) {
             try {
-                console.log('entrei aqui');
                 postNewPost(newPostContent);
             } catch (error) {
                 console.log('Erro ao postar novo post:', error);
