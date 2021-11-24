@@ -56,7 +56,8 @@ function getBtnsContainer() {
 
 function getSubmitEdtBtn(id) {
     const postEditorBtn = document.createElement('div');
-    postEditorBtn.className = 'post-editor__btn noselect';
+    postEditorBtn.className = 
+    'post-editor__btn post-editor__edtr-btn noselect';
     postEditorBtn.id = `post-editor__edtr-btn${id}`;
 
     if (id === 0) {
@@ -82,7 +83,8 @@ function getNewPostContent(id) {
 
 function getCancelEdtBtn(id) {
     const cancelEdtBtn = document.createElement('div');
-    cancelEdtBtn.className = 'post-editor__btn noselect';
+    cancelEdtBtn.className = 
+    'post-editor__btn post-editor__cancel-btn noselect';
     cancelEdtBtn.id = `post-editor__cancel-btn${id}`;
     cancelEdtBtn.innerHTML = 'Cancelar';
     return cancelEdtBtn;

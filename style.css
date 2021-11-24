@@ -108,14 +108,29 @@ main {
     text-align: center;
     border-radius: 5px;
     transition: 0.3s;
-    color: #ff4742;
-    outline: 1px solid #ff4742;
     cursor: pointer;
 }
 
-.post-editor__btn:hover {
-    background-color: #ff4742;
+.post-editor__edtr-btn {
+    color: #12b55c;
+    outline: 1px solid #12b55c;
+}
+
+.post-editor__edtr-btn:hover {
+    background-color: #12b55c;
     color: white;
+}
+
+.post-editor__cancel-btn {
+    background-color: purple;
+    color: white;
+}
+
+.post-editor__cancel-btn:hover {
+    color: purple;
+    background-color: white;
+    outline: 1px solid purple;
+    
 }
 
 .card {
