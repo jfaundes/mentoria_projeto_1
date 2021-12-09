@@ -139,7 +139,7 @@ main {
     margin: 0 0 1em 0;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border-radius: 5px;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .card:hover {
@@ -176,6 +176,9 @@ main {
     font-size: small;
     color: #ff4742;
     font-weight: 700;
+}
+
+.card__post-btn:hover {
     text-decoration: underline;
 }
 

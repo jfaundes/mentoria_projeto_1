@@ -60,7 +60,7 @@ function getEditPostBtn(id) {
 
 function getDeletePostBtn(id) {
     const deletePostBtn = document.createElement('div');
-    deletePostBtn.className = 'card__delete-post-btn noselect';
+    deletePostBtn.className = 'card__post-btn noselect';
     deletePostBtn.id = `card__delete-post-btn${id}`;
     deletePostBtn.innerHTML = `Deletar Post`;
     return deletePostBtn;
