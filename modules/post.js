@@ -1,6 +1,7 @@
 import { writePostEditorContainer } from "./postEditor.js";
 import { getCmnts } from "../events/getCmnts.js";
 import writeCmnt from "./comment.js";
+import { deletePost } from "../events/deletePost.js";
 
 function getCard(id) {
     const card = document.createElement('div');
@@ -57,6 +58,14 @@ function getEditPostBtn(id) {
     return editPostBtn;
 }
 
+function getDeletePostBtn(id) {
+    const deletePostBtn = document.createElement('div');
+    deletePostBtn.className = 'card__delete-post-btn noselect';
+    deletePostBtn.id = `card__delete-post-btn${id}`;
+    deletePostBtn.innerHTML = `Deletar Post`;
+    return deletePostBtn;
+}
+
 function getCmntContainer(id) {
     const cmntContainer = document.createElement('div');
     cmntContainer.className = 'card__cmnts-container';
@@ -98,6 +107,12 @@ function postSetup(post) {
 
     let hasCmntsCache = false;
 
+    const deletePostBtn = getDeletePostBtn(post.id);
+    deletePostBtn.addEventListener(
+        'click',
+        () => deletePost(post)
+    );
+
     const editPostBtn = getEditPostBtn(post.id);
     editPostBtn.addEventListener(
         'click',
@@ -128,6 +143,7 @@ function postSetup(post) {
 
     btnsContainer.appendChild(showCmntsBtn);
     btnsContainer.appendChild(editPostBtn);
+    btnsContainer.appendChild(deletePostBtn);
 
     postWrapper.appendChild(getTitle(post));
     postWrapper.appendChild(getParagraph(post));
