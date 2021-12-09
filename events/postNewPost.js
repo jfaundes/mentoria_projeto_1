@@ -2,17 +2,20 @@ import postSetup from "../modules/post.js";
 import { showNewPostCard } from "../script.js";
 
 const postNewPost = async post => {
-    const novoPost = await fetch('https://jsonplaceholder.typicode.com/posts', {
+    fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
         body: JSON.stringify(post),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
         },
-    }).then((response) => response.json())
-    // Definir como o novoPost será inserido na página e fazer com que isso
-    // só aconteça depois de ser enviado com sucesso para a API.
-    postSetup(novoPost);
-    showNewPostCard();
+    }).then(async (response) => {
+        postSetup(await response.json());
+        showNewPostCard();
+    })
+    .catch((error) => {
+        console.log(error)
+        alert('deu erro');
+    });
 }
 
 export { postNewPost };
