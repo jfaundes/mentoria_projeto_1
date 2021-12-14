@@ -46,4 +46,4 @@ printPosts(2);
 newPostBtn.addEventListener("click", showNewPostCard)
 loadFiveBtn.addEventListener("click", () => printPosts(5));
 
-export {showNewPostCard};
+export {showNewPostCard, postsPromise};
