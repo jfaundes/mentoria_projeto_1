@@ -25,12 +25,12 @@ function getTitle(post) {
     return title;
 }
 
-function getParagraph(post) {
-    const paragraph = document.createElement('p');
-    paragraph.className = 'card__post-content';
-    paragraph.id = `card__post-content${post.id}`;
-    paragraph.innerHTML = post.body;
-    return paragraph;
+function getContent(post) {
+    const content = document.createElement('p');
+    content.className = 'card__post-content';
+    content.id = `card__post-content${post.id}`;
+    content.innerHTML = post.body;
+    return content;
 }
 
 function getBtnsContainer(id) {
@@ -146,7 +146,7 @@ function postSetup(post) {
     btnsContainer.appendChild(deletePostBtn);
 
     postWrapper.appendChild(getTitle(post));
-    postWrapper.appendChild(getParagraph(post));
+    postWrapper.appendChild(getContent(post));
     postWrapper.appendChild(btnsContainer);
 
     postCard.appendChild(postWrapper);
