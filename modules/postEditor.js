@@ -1,4 +1,5 @@
 import { postNewPost } from "../events/postNewPost.js";
+import { updatePost } from "../events/updatePost.js";
 
 function getPostEditorContainer(id) {
     id = id || 0;
@@ -56,8 +57,8 @@ function getBtnsContainer() {
 
 function getSubmitEdtBtn(id) {
     const postEditorBtn = document.createElement('div');
-    postEditorBtn.className = 
-    'post-editor__btn post-editor__edtr-btn noselect';
+    postEditorBtn.className =
+        'post-editor__btn post-editor__edtr-btn noselect';
     postEditorBtn.id = `post-editor__edtr-btn${id}`;
 
     if (id === 0) {
@@ -65,7 +66,7 @@ function getSubmitEdtBtn(id) {
     } else {
         postEditorBtn.innerHTML = 'Salvar Alteração';
     }
-    
+
     return postEditorBtn;
 }
 
@@ -83,16 +84,18 @@ function getNewPostContent(id) {
 
 function getCancelEdtBtn(id) {
     const cancelEdtBtn = document.createElement('div');
-    cancelEdtBtn.className = 
-    'post-editor__btn post-editor__cancel-btn noselect';
+    cancelEdtBtn.className =
+        'post-editor__btn post-editor__cancel-btn noselect';
     cancelEdtBtn.id = `post-editor__cancel-btn${id}`;
     cancelEdtBtn.innerHTML = 'Cancelar';
     return cancelEdtBtn;
 }
 
-function cancelEdt(id, newPostEditorContainer) {
+function stopEdt(id) {
     const editorWrapper = document.getElementById(`post-editor__wrapper${id}`);
-    editorWrapper.removeChild(newPostEditorContainer);
+    const postEditorContainer = document.getElementById(`post-editor__container${id}`)
+    
+    editorWrapper.removeChild(postEditorContainer);
 
     if (id === 0) {
         const headerCancelBtn = document.getElementById('new-post-btn');
@@ -104,16 +107,13 @@ function cancelEdt(id, newPostEditorContainer) {
     }
 }
 
-export function writePostEditorContainer(post) {
+function writePostEditorContainer(post) {
     post = post || { id: 0 };
 
     const newPostEditorContainer = getPostEditorContainer(post.id);
 
     const cancelEdtBtn = getCancelEdtBtn(post.id);
-    cancelEdtBtn.addEventListener('click', () => cancelEdt(
-        post.id, 
-        newPostEditorContainer
-    ));
+    cancelEdtBtn.addEventListener('click', () => stopEdt(post.id));
 
     const submitEdtBtn = getSubmitEdtBtn(post.id);
     submitEdtBtn.addEventListener('click', () => {
@@ -127,7 +127,7 @@ export function writePostEditorContainer(post) {
             }
         } else {
             try {
-                //updatePost(newPostContent);
+                updatePost(newPostContent);
             } catch (error) {
                 console.log('Erro ao editar novo post:', error);
             }
@@ -139,9 +139,11 @@ export function writePostEditorContainer(post) {
     btnsContainer.appendChild(cancelEdtBtn);
 
     newPostEditorContainer.appendChild(getPostTitleInput(post.id, post.title));
-    
+
     newPostEditorContainer.appendChild(getPostContentInput(post.id, post.body));
     newPostEditorContainer.appendChild(btnsContainer);
 
     return newPostEditorContainer;
 }
+
+export { writePostEditorContainer, stopEdt }
