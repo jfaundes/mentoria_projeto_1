@@ -17,19 +17,19 @@ function getWrapper(id) {
     return wrapper;
 }
 
-function getTitle(post) {
+function getTitle(id, postTitle) {
     const title = document.createElement('h1');
     title.className = 'card__post-title';
-    title.id = `card__post-title${post.id}`;
-    title.innerHTML = post.title;
+    title.id = `card__post-title${id}`;
+    title.innerHTML = postTitle;
     return title;
 }
 
-function getContent(post) {
+function getContent(id, body) {
     const content = document.createElement('p');
     content.className = 'card__post-content';
-    content.id = `card__post-content${post.id}`;
-    content.innerHTML = post.body;
+    content.id = `card__post-content${id}`;
+    content.innerHTML = body;
     return content;
 }
 
@@ -98,31 +98,32 @@ function togglePostEdtr(post, postEdtrWrapper) {
 }
 
 function postSetup(post) {
+    const { id, title, body } = post;
     const postsContainer = document.getElementById("posts-container");
-    const postCard = getCard(post.id);
-    const postWrapper = getWrapper(post.id);
-    const cmntContainer = getCmntContainer(post.id);
-    const postEdtrWrapper = getPostEdtrWrapper(post.id);
-    const btnsContainer = getBtnsContainer(post.id);
+    const postCard = getCard(id);
+    const postWrapper = getWrapper(id);
+    const cmntContainer = getCmntContainer(id);
+    const postEdtrWrapper = getPostEdtrWrapper(id);
+    const btnsContainer = getBtnsContainer(id);
 
     let hasCmntsCache = false;
 
-    const deletePostBtn = getDeletePostBtn(post.id);
+    const deletePostBtn = getDeletePostBtn(id);
     deletePostBtn.addEventListener(
         'click',
         () => deletePost(post)
     );
 
-    const editPostBtn = getEditPostBtn(post.id);
+    const editPostBtn = getEditPostBtn(id);
     editPostBtn.addEventListener(
         'click',
         () => togglePostEdtr(post, postEdtrWrapper)
     );
 
-    const showCmntsBtn = getShowCmntsBtn(post.id);
+    const showCmntsBtn = getShowCmntsBtn(id);
     showCmntsBtn.addEventListener(
         'click', 
-        () => cmntsHandler(post.id, cmntContainer)
+        () => cmntsHandler(id, cmntContainer)
     );
 
     async function cmntsHandler(id) {
@@ -145,8 +146,8 @@ function postSetup(post) {
     btnsContainer.appendChild(editPostBtn);
     btnsContainer.appendChild(deletePostBtn);
 
-    postWrapper.appendChild(getTitle(post));
-    postWrapper.appendChild(getContent(post));
+    postWrapper.appendChild(getTitle(id, title));
+    postWrapper.appendChild(getContent(id, body));
     postWrapper.appendChild(btnsContainer);
 
     postCard.appendChild(postWrapper);
