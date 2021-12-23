@@ -1,5 +1,5 @@
 import { getAllPosts } from "./events/getAllPosts.js";
-import postSetup from "./modules/post.js";
+import { postSetup } from "./modules/post.js";
 import { writePostEditorContainer } from "./modules/postEditor.js";
 
 const newPostDiv = document.getElementById(`post-editor__wrapper${0}`);
@@ -32,10 +32,7 @@ const showNewPostCard = () => {
     newPostBtn.className = "header__btn noselect";
     newPostDiv.removeChild(postEdtrContainer);
   } else {
-    const postEdtrContainer = writePostEditorContainer(
-      null,
-      newPostDiv
-    );
+    const postEdtrContainer = writePostEditorContainer();
     newPostBtn.innerHTML = 'Cancelar'
     newPostBtn.className = "header__btn header__btn--cancel noselect";
     newPostDiv.appendChild(postEdtrContainer);
