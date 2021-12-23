@@ -34,11 +34,12 @@ function getFooterElement(footerContent) {
 }
 
 function writeCmnt(cmnt, destination) {
-    const wrapper = getContainerElement(cmnt.id);
+    const {id, name, email, body} = cmnt;
+    const wrapper = getContainerElement(id);
 
-    wrapper.appendChild(getTitleElement(cmnt.name));
-    wrapper.appendChild(getEmailElement(cmnt.email));
-    wrapper.appendChild(getParagraphElement(cmnt.body));
+    wrapper.appendChild(getTitleElement(name));
+    wrapper.appendChild(getEmailElement(email));
+    wrapper.appendChild(getParagraphElement(body));
     destination.appendChild(wrapper);
 }
 
