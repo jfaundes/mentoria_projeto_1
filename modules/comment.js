@@ -43,4 +43,4 @@ function writeCmnt(cmnt, destination) {
     destination.appendChild(wrapper);
 }
 
-export default writeCmnt;
+export { writeCmnt };

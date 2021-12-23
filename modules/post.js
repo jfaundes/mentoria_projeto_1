@@ -1,6 +1,6 @@
 import { writePostEditorContainer } from "./postEditor.js";
 import { getCmnts } from "../events/getCmnts.js";
-import writeCmnt from "./comment.js";
+import { writeCmnt } from "./comment.js";
 import { deletePost } from "../events/deletePost.js";
 
 function getCard(id) {
@@ -156,4 +156,4 @@ function postSetup(post) {
     postsContainer.prepend(postCard);
 }
 
-export default postSetup;
+export { postSetup };

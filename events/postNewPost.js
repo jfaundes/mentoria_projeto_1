@@ -1,4 +1,4 @@
-import postSetup from "../modules/post.js";
+import { postSetup } from "../modules/post.js";
 import { showNewPostCard } from "../script.js";
 
 const postNewPost = async post => {
