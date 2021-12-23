@@ -2,8 +2,6 @@ import { postNewPost } from "../events/postNewPost.js";
 import { updatePost } from "../events/updatePost.js";
 
 function getPostEditorContainer(id) {
-    id = id || 0;
-
     const postEditorContainer = document.createElement('div');
     postEditorContainer.className = 'post-editor__container';
     postEditorContainer.id = `post-editor__container${id}`;
@@ -11,8 +9,6 @@ function getPostEditorContainer(id) {
 }
 
 function getPostTitleInput(id, titleInputContent) {
-    titleInputContent = titleInputContent || '';
-
     const postTitleLabel = document.createElement('label');
     postTitleLabel.className = 'post-editor__label';
     postTitleLabel.id = `post-editor__label--title${id}`;
@@ -31,8 +27,6 @@ function getPostTitleInput(id, titleInputContent) {
 }
 
 function getPostContentInput(id, contentInputContent) {
-    contentInputContent = contentInputContent || '';
-
     const postContentLabel = document.createElement('label');
     postContentLabel.className = 'post-editor__label';
     postContentLabel.id = `post-editor__label--content${id}`;
@@ -49,9 +43,10 @@ function getPostContentInput(id, contentInputContent) {
     return postContentLabel;
 }
 
-function getBtnsContainer() {
+function getBtnsContainer(id) {
     const btnsContainer = document.createElement('div');
     btnsContainer.className = 'post-editor__btns-container';
+    btnsContainer.id = `post-editor__btns-container${id}`;
     return btnsContainer;
 }
 
@@ -93,7 +88,9 @@ function getCancelEdtBtn(id) {
 
 function stopEdt(id) {
     const editorWrapper = document.getElementById(`post-editor__wrapper${id}`);
-    const postEditorContainer = document.getElementById(`post-editor__container${id}`)
+    const postEditorContainer = document.getElementById(
+        `post-editor__container${id}`
+    )
     
     editorWrapper.removeChild(postEditorContainer);
 
@@ -107,17 +104,17 @@ function stopEdt(id) {
     }
 }
 
-function writePostEditorContainer(post) {
-    post = post || { id: 0 };
+function writePostEditorContainer(post = {}) {
+    const { id = 0, title = '', body = '' } = post;
 
-    const newPostEditorContainer = getPostEditorContainer(post.id);
+    const newPostEditorContainer = getPostEditorContainer(id);
 
-    const cancelEdtBtn = getCancelEdtBtn(post.id);
-    cancelEdtBtn.addEventListener('click', () => stopEdt(post.id));
+    const cancelEdtBtn = getCancelEdtBtn(id);
+    cancelEdtBtn.addEventListener('click', () => stopEdt(id));
 
-    const submitEdtBtn = getSubmitEdtBtn(post.id);
+    const submitEdtBtn = getSubmitEdtBtn(id);
     submitEdtBtn.addEventListener('click', () => {
-        const newPostContent = getNewPostContent(post.id);
+        const newPostContent = getNewPostContent(id);
 
         if (newPostContent.id === 0) {
             try {
@@ -134,13 +131,13 @@ function writePostEditorContainer(post) {
         }
     });
 
-    const btnsContainer = getBtnsContainer();
+    const btnsContainer = getBtnsContainer(id);
     btnsContainer.appendChild(submitEdtBtn);
     btnsContainer.appendChild(cancelEdtBtn);
 
-    newPostEditorContainer.appendChild(getPostTitleInput(post.id, post.title));
+    newPostEditorContainer.appendChild(getPostTitleInput(id, title));
 
-    newPostEditorContainer.appendChild(getPostContentInput(post.id, post.body));
+    newPostEditorContainer.appendChild(getPostContentInput(id, body));
     newPostEditorContainer.appendChild(btnsContainer);
 
     return newPostEditorContainer;
