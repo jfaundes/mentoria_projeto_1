@@ -1,6 +1,12 @@
-import { getAllPosts } from "./events/getAllPosts.js";
-import { postSetup } from "./modules/post.js";
-import { writePostEditorContainer } from "./modules/postEditor.js";
+import {
+  getAllPosts
+} from "./events/getAllPosts.js";
+import {
+  postSetup
+} from "./modules/post.js";
+import {
+  writePostEditorContainer
+} from "./modules/postEditor.js";
 
 const newPostDiv = document.getElementById(`post-editor__wrapper${0}`);
 const loadFiveBtn = document.getElementById("load-five-btn");
@@ -43,4 +49,7 @@ printPosts(2);
 newPostBtn.addEventListener("click", showNewPostCard)
 loadFiveBtn.addEventListener("click", () => printPosts(5));
 
-export {showNewPostCard, postsPromise};
+export {
+  showNewPostCard,
+  postsPromise
+};
