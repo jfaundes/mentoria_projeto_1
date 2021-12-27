@@ -17,7 +17,7 @@ const postNewPost = async post => {
 
     newPost.id = window.postsArray.length+1;
     window.postsArray.push(newPost);
-    postSetup(newPost);
+    postSetup(newPost.id-1);
     showNewPostCard();
   } catch (error) {
     console.log(error);

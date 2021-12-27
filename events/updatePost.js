@@ -16,6 +16,8 @@ const updatePost = async post => {
     const updatedPost = await updatedPostResponse.json()
     updateHTMLPostTitle(updatedPost);
     updateHTMLPostContent(updatedPost);
+    updateArrayPostTitle(updatedPost);
+    updateArrayPostContent(updatedPost);
     stopEdt(updatedPost.id);
   } catch (error) {
     console.error(`Erro ao fazer o update do post!\n${error}`);
@@ -30,6 +32,14 @@ const updateHTMLPostTitle = updatedPost => {
 const updateHTMLPostContent = updatedPost => {
   const postContent = document.getElementById(`card__post-content${updatedPost.id}`);
   postContent.innerHTML = updatedPost.body;
+}
+
+const updateArrayPostTitle = ({ id, title }) => {
+  window.postsArray[id-1].title = title;
+}
+
+const updateArrayPostContent = ({id, body}) => {
+  window.postsArray[id-1].body = body;
 }
 
 export {

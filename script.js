@@ -16,9 +16,8 @@ let currentId = 0;
 
 const printPosts = async nPosts => {
   try {
-    const postsArray = await window.postsArray;
     for (let i = 0; i < nPosts; i++) {
-      postSetup(postsArray[currentId]);
+      postSetup(currentId);
       currentId++;
     }
   } catch (e) {

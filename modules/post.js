@@ -89,15 +89,21 @@ function getPostEdtrWrapper(id) {
     return postEdtrWrapper;
 }
 
-function togglePostEdtr(post, postEdtrWrapper) {
-    const postEditorContainer = writePostEditorContainer(post);
+function togglePostEdtr(id, postEdtrWrapper) {
+    const postEditorContainer = writePostEditorContainer(id-1);
     postEdtrWrapper.appendChild(postEditorContainer);
     
-    const postWrapper = document.getElementById(`card__post-wrapper${post.id}`);
+    const postWrapper = document.getElementById(`card__post-wrapper${id}`);
     postWrapper.style.display = 'none';
 }
 
-function postSetup(post) {
+function postSetup(position) {
+    const post = window.postsArray[position];
+    if (!Object.keys(post).length) {
+        console.error(`O post na posição ${position} está vazio!`);
+        return;
+    }
+    
     const { id, title, body } = post;
     const postsContainer = document.getElementById("posts-container");
     const postCard = getCard(id);
@@ -117,7 +123,7 @@ function postSetup(post) {
     const editPostBtn = getEditPostBtn(id);
     editPostBtn.addEventListener(
         'click',
-        () => togglePostEdtr(post, postEdtrWrapper)
+        () => togglePostEdtr(id, postEdtrWrapper)
     );
 
     const showCmntsBtn = getShowCmntsBtn(id);
