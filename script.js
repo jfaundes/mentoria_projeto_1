@@ -14,18 +14,15 @@ const newPostBtn = document.getElementById("new-post-btn");
 
 let currentId = 0;
 
-const postsPromise = getAllPosts();
-
 const printPosts = async nPosts => {
   try {
-    const postsArray = await postsPromise;
+    const postsArray = await window.postsArray;
     for (let i = 0; i < nPosts; i++) {
       postSetup(postsArray[currentId]);
       currentId++;
     }
   } catch (e) {
-    alert(e);
-    console.log(e);
+    console.error(e);
   }
 };
 
@@ -45,11 +42,12 @@ const showNewPostCard = () => {
   }
 }
 
+await getAllPosts();
+
 printPosts(2);
 newPostBtn.addEventListener("click", showNewPostCard)
 loadFiveBtn.addEventListener("click", () => printPosts(5));
 
 export {
   showNewPostCard,
-  postsPromise
 };
