@@ -13,8 +13,11 @@ const postNewPost = async post => {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-    });
-    postSetup(await newPost.json());
+    }).then(response => response.json());
+
+    newPost.id = window.postsArray.length+1;
+    window.postsArray.push(newPost);
+    postSetup(newPost);
     showNewPostCard();
   } catch (error) {
     console.log(error);
