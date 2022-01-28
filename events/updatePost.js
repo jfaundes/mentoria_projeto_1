@@ -1,19 +1,19 @@
-import {
-  stopEdt
-} from "../modules/postEditor.js";
+import { stopEdt } from "../modules/postEditor.js";
 
-const updatePost = async post => {
+const updatePost = async (post) => {
   try {
-    const updatedPostResponse =
-      await fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}`, {
-        method: 'PUT',
+    const updatedPostResponse = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${post.id}`,
+      {
+        method: "PUT",
         body: JSON.stringify(post),
         headers: {
-          'Content-type': 'application/json; charset=UTF-8',
+          "Content-type": "application/json; charset=UTF-8",
         },
-      });
+      }
+    );
 
-    const updatedPost = await updatedPostResponse.json()
+    const updatedPost = await updatedPostResponse.json();
     updateHTMLPostTitle(updatedPost);
     updateHTMLPostContent(updatedPost);
     updateArrayPostTitle(updatedPost);
@@ -22,26 +22,24 @@ const updatePost = async post => {
   } catch (error) {
     console.error(`Erro ao fazer o update do post!\n${error}`);
   }
-}
+};
 
-const updateHTMLPostTitle = updatedPost => {
-  const postTitle = document.getElementById(`card__post-title${updatedPost.id}`);
-  postTitle.innerHTML = updatedPost.title;
-}
+const updateHTMLPostTitle = ({ id, title }) => {
+  const postTitle = document.getElementById(`card__post-title${id}`);
+  postTitle.innerHTML = title;
+};
 
-const updateHTMLPostContent = updatedPost => {
-  const postContent = document.getElementById(`card__post-content${updatedPost.id}`);
-  postContent.innerHTML = updatedPost.body;
-}
+const updateHTMLPostContent = ({ id, body }) => {
+  const postContent = document.getElementById(`card__post-content${id}`);
+  postContent.innerHTML = body;
+};
 
 const updateArrayPostTitle = ({ id, title }) => {
-  window.postsArray[id-1].title = title;
-}
+  window.postsArray[id - 1].title = title;
+};
 
-const updateArrayPostContent = ({id, body}) => {
-  window.postsArray[id-1].body = body;
-}
+const updateArrayPostContent = ({ id, body }) => {
+  window.postsArray[id - 1].body = body;
+};
 
-export {
-  updatePost
-}
+export { updatePost };

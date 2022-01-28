@@ -1,0 +1,22 @@
+{
+  "name": "mentoria_projeto_1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zizima100/mentoria_projeto_1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zizima100/mentoria_projeto_1/issues"
+  },
+  "homepage": "https://github.com/zizima100/mentoria_projeto_1#readme",
+  "devDependencies": {
+    "jest": "^27.4.7"
+  }
+}
