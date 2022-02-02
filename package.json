@@ -4,7 +4,7 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage --env=jsdom"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/zizima100/mentoria_projeto_1#readme",
   "devDependencies": {
-    "jest": "^27.4.7"
+    "jest": "^27.4.7",
+    "@babel/plugin-transform-modules-commonjs": "^7.16.8"
   }
 }
