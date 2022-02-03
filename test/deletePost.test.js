@@ -1,4 +1,4 @@
-import { deletePost } from "../events/deletePost.js";
+import { deletePost } from "../modules/events/deletePost.js";
 
 // mockando fetch
 global.fetch = jest.fn(() => {
