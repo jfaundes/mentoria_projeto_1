@@ -1,11 +1,18 @@
 function getCard(id) {
+  if (!id && id !== 0) {
+    throw new Error("ID inexistente!");
+  }
   const card = document.createElement("div");
   card.className = "card";
   card.id = `card${id}`;
+  card.hasCmntsCache = false;
   return card;
 }
 
 function getWrapper(id) {
+  if (!id && id !== 0) {
+    throw new Error("ID inexistente!");
+  }
   const wrapper = document.createElement("article");
   wrapper.className = "card__post-wrapper";
   wrapper.id = `card__post-wrapper${id}`;
@@ -13,6 +20,14 @@ function getWrapper(id) {
 }
 
 function getTitle(id, postTitle) {
+  if (!id && id !== 0) {
+    throw new Error("ID inexistente!");
+  }
+
+  if (!postTitle && postTitle !== 0) {
+    throw new Error("Título inexistente!");
+  }
+
   const title = document.createElement("h1");
   title.className = "card__post-title";
   title.id = `card__post-title${id}`;
@@ -21,6 +36,13 @@ function getTitle(id, postTitle) {
 }
 
 function getContent(id, body) {
+  if (!id && id !== 0) {
+    throw new Error("ID inexistente!");
+  }
+
+  if (!body && body !== 0) {
+    throw new Error("Conteúdo inexistente!");
+  }
   const content = document.createElement("p");
   content.className = "card__post-content";
   content.id = `card__post-content${id}`;
@@ -29,6 +51,10 @@ function getContent(id, body) {
 }
 
 function getBtnsContainer(id) {
+  if (!id && id !== 0) {
+    throw new Error("id inexistente!");
+  }
+
   const btnsContainer = document.createElement("div");
   btnsContainer.className = "card__post-btns-container";
   btnsContainer.id = `card__post-btns-container${id}`;

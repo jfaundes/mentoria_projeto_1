@@ -2,6 +2,12 @@ import { stopEdt } from "../postEditorSetup.js";
 
 const updatePost = async (post) => {
   try {
+    if (post.id > 100) {
+      alert("A API não suporta edição de posts novos :(");
+      stopEdt(post.id);
+      return;
+    }
+
     const updatedPostResponse = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${post.id}`,
       {

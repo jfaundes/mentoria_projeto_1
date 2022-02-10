@@ -14,7 +14,7 @@ function getPostTitleInput(id) {
 
   const postTitleInput = document.createElement("input");
   let postTitleContent = ``;
-  if (id) postTitleContent = window.postsArray[id - 1].title;
+  if (id >= 0) postTitleContent = window.postsArray[id - 1].title;
   postTitleInput.className = "post-editor__input";
   postTitleInput.type = "text";
   postTitleInput.id = `title-input${id}`;
@@ -34,7 +34,7 @@ function getPostContentInput(id) {
 
   const postContentTextArea = document.createElement("textarea");
   let contentInputContent = ``;
-  if (id) contentInputContent = window.postsArray[id - 1].body;
+  if (id >= 0) contentInputContent = window.postsArray[id - 1].body;
   postContentTextArea.className = "post-editor__textarea";
   postContentTextArea.id = `content-textarea${id}`;
   postContentTextArea.value = contentInputContent;

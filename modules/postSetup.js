@@ -1,6 +1,4 @@
 import { writePostEditorContainer } from "./postEditorSetup.js";
-import { getCmnts } from "./events/getCmnts.js";
-import { writeCmnt } from "./comntsSetup.js";
 import { deletePost } from "./events/deletePost.js";
 import {
   getCard,
@@ -14,9 +12,12 @@ import {
   getTitle,
   getContent,
 } from "./getElements/postElements.js";
+import { validatePost } from "./helpers/validatePost.js";
+import { cmntsHandler } from "./helpers/cmntsHandler.js";
 
-function togglePostEdtr(id, postEdtrWrapper) {
-  const postEditorContainer = writePostEditorContainer(id - 1);
+function togglePostEdtr(id) {
+  const postEdtrWrapper = document.getElementById(`post-editor__wrapper${id}`);
+  const postEditorContainer = writePostEditorContainer(id);
   postEdtrWrapper.appendChild(postEditorContainer);
 
   const postWrapper = document.getElementById(`card__post-wrapper${id}`);
@@ -25,10 +26,8 @@ function togglePostEdtr(id, postEdtrWrapper) {
 
 function postSetup(position) {
   const post = window.postsArray[position];
-  if (!Object.keys(post).length) {
-    console.error(`O post na posição ${position} está vazio!`);
-    return;
-  }
+
+  validatePost(post);
 
   const { id, title, body } = post;
   const postsContainer = document.getElementById("posts-container");
@@ -38,34 +37,14 @@ function postSetup(position) {
   const postEdtrWrapper = getPostEdtrWrapper(id);
   const btnsContainer = getBtnsContainer(id);
 
-  let hasCmntsCache = false;
-
   const deletePostBtn = getDeletePostBtn(id);
   deletePostBtn.addEventListener("click", () => deletePost(post));
 
   const editPostBtn = getEditPostBtn(id);
-  editPostBtn.addEventListener("click", () =>
-    togglePostEdtr(id, postEdtrWrapper)
-  );
+  editPostBtn.addEventListener("click", () => togglePostEdtr(id));
 
   const showCmntsBtn = getShowCmntsBtn(id);
-  showCmntsBtn.addEventListener("click", () => cmntsHandler(id, cmntContainer));
-
-  async function cmntsHandler(id) {
-    if (!hasCmntsCache) {
-      const cmntArray = await getCmnts(id);
-      cmntArray.map((cmnt) => writeCmnt(cmnt, cmntContainer));
-      hasCmntsCache = true;
-    }
-
-    if (cmntContainer.style.display) {
-      cmntContainer.style.display = "";
-      showCmntsBtn.innerHTML = "Esconder Comentários";
-    } else {
-      cmntContainer.style.display = "none";
-      showCmntsBtn.innerHTML = "Mostrar Comentários";
-    }
-  }
+  showCmntsBtn.addEventListener("click", () => cmntsHandler(id));
 
   btnsContainer.appendChild(showCmntsBtn);
   btnsContainer.appendChild(editPostBtn);

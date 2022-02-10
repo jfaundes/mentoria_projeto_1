@@ -18,7 +18,7 @@ function stopEdt(id) {
 
   editorWrapper.removeChild(postEditorContainer);
 
-  if (id === 0) {
+  if (id === -1) {
     const headerCancelBtn = document.getElementById("new-post-btn");
     headerCancelBtn.innerHTML = "New Post";
     headerCancelBtn.className = "header__btn noselect";
@@ -28,10 +28,8 @@ function stopEdt(id) {
   }
 }
 
-function writePostEditorContainer(position = 0) {
-  let id = 0;
-  if (position) id = position + 1;
-
+function writePostEditorContainer(id = -1) {
+  // POST EDITOR - ID do post se não vira -1
   const cancelEdtBtn = getCancelEdtBtn(id);
   cancelEdtBtn.addEventListener("click", () => stopEdt(id));
 
@@ -39,7 +37,7 @@ function writePostEditorContainer(position = 0) {
   submitEdtBtn.addEventListener("click", () => {
     const newPostContent = getNewPostContent(id);
 
-    if (newPostContent.id === 0) {
+    if (newPostContent.id === -1) {
       try {
         postNewPost(newPostContent);
       } catch (error) {

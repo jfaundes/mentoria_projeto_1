@@ -1,12 +1,12 @@
 import { writePostEditorContainer } from "../postEditorSetup.js";
 
-const newPostDiv = document.getElementById(`post-editor__wrapper${0}`);
+const newPostDiv = document.getElementById(`post-editor__wrapper${-1}`);
 const newPostBtn = document.getElementById("new-post-btn");
 
 const showNewPostCard = () => {
   if (newPostDiv.childNodes.length !== 0) {
     const postEdtrContainer = document.getElementById(
-      `post-editor__container${0}`
+      `post-editor__container${-1}`
     );
     newPostBtn.innerHTML = "New Post";
     newPostBtn.className = "header__btn noselect";
