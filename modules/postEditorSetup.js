@@ -29,7 +29,6 @@ function stopEdt(id) {
 }
 
 function writePostEditorContainer(id = -1) {
-  // POST EDITOR - ID do post se não vira -1
   const cancelEdtBtn = getCancelEdtBtn(id);
   cancelEdtBtn.addEventListener("click", () => stopEdt(id));
 

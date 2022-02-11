@@ -1,5 +1,3 @@
-import { writePostEditorContainer } from "./postEditorSetup.js";
-import { deletePost } from "./events/deletePost.js";
 import {
   getCard,
   getWrapper,
@@ -12,17 +10,10 @@ import {
   getTitle,
   getContent,
 } from "./getElements/postElements.js";
+import { deletePost } from "./events/deletePost.js";
 import { validatePost } from "./helpers/validatePost.js";
 import { cmntsHandler } from "./helpers/cmntsHandler.js";
-
-function togglePostEdtr(id) {
-  const postEdtrWrapper = document.getElementById(`post-editor__wrapper${id}`);
-  const postEditorContainer = writePostEditorContainer(id);
-  postEdtrWrapper.appendChild(postEditorContainer);
-
-  const postWrapper = document.getElementById(`card__post-wrapper${id}`);
-  postWrapper.style.display = "none";
-}
+import { togglePostEdtr } from "./helpers/togglePostEdtr.js";
 
 function postSetup(position) {
   const post = window.postsArray[position];
