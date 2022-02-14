@@ -1,3 +1,7 @@
+import { deletePost } from "../events/deletePost.js";
+import { togglePostEdtr } from "../helpers/togglePostEdtr.js";
+import { cmntsHandler } from "../helpers/cmntsHandler.js";
+
 function getCard(id) {
   if (!id && id !== 0) {
     throw new Error("ID inexistente!");
@@ -62,11 +66,12 @@ function getBtnsContainer(id) {
 }
 
 function getShowCmntsBtn(id) {
-  const showComntsBtn = document.createElement("div");
-  showComntsBtn.className = "card__post-btn noselect";
-  showComntsBtn.id = `card__cmnts-post-btn${id}`;
-  showComntsBtn.innerHTML = "Mostrar Comentários";
-  return showComntsBtn;
+  const showCmntsBtn = document.createElement("div");
+  showCmntsBtn.className = "card__post-btn noselect";
+  showCmntsBtn.id = `card__cmnts-post-btn${id}`;
+  showCmntsBtn.innerHTML = "Mostrar Comentários";
+  showCmntsBtn.addEventListener("click", () => cmntsHandler(id));
+  return showCmntsBtn;
 }
 
 function getEditPostBtn(id) {
@@ -74,6 +79,7 @@ function getEditPostBtn(id) {
   editPostBtn.className = "card__post-btn noselect";
   editPostBtn.id = `card__edt-post-btn${id}`;
   editPostBtn.innerHTML = "Editar Post";
+  editPostBtn.addEventListener("click", () => togglePostEdtr(id));
   return editPostBtn;
 }
 
@@ -82,6 +88,7 @@ function getDeletePostBtn(id) {
   deletePostBtn.className = "card__post-btn noselect";
   deletePostBtn.id = `card__delete-post-btn${id}`;
   deletePostBtn.innerHTML = `Deletar Post`;
+  deletePostBtn.addEventListener("click", () => deletePost(window.postsArray[id -1]));
   return deletePostBtn;
 }
 
