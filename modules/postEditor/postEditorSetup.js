@@ -1,5 +1,5 @@
-import { postNewPost } from "./events/postNewPost.js";
-import { updatePost } from "./events/updatePost.js";
+import { postNewPost } from "../fetch/postNewPost.js";
+import { updatePost } from "../fetch/updatePost.js";
 import {
   getPostEditorContainer,
   getPostTitleInput,

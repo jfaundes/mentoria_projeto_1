@@ -1,4 +1,4 @@
-import { postSetup } from "../modules/postSetup.js";
+import { postSetup } from "../modules/post/postSetup.js";
 
 global.postsArray = [
   {},

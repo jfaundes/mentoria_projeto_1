@@ -1,5 +1,5 @@
-import { postSetup } from "../postSetup.js";
-import { showNewPostCard } from "../helpers/showNewPostCard.js";
+import { postSetup } from "../post/postSetup.js";
+import { showNewPostCard } from "../post/helpers/showNewPostCard.js";
 
 const postNewPost = async (post) => {
   try {

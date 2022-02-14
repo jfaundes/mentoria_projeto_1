@@ -1,4 +1,4 @@
-import { writePostEditorContainer } from "../postEditorSetup.js";
+import { writePostEditorContainer } from "../../postEditor/postEditorSetup.js";
 
 const newPostDiv = document.getElementById(`post-editor__wrapper${-1}`);
 const newPostBtn = document.getElementById("new-post-btn");

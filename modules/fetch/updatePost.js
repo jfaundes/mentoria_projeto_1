@@ -1,4 +1,4 @@
-import { stopEdt } from "../postEditorSetup.js";
+import { stopEdt } from "../postEditor/postEditorSetup.js";
 
 const updatePost = async (post) => {
   try {

@@ -1,6 +1,6 @@
-import { getAllPosts } from "./modules/events/getAllPosts.js";
-import { printPosts } from "./modules/helpers/printPosts.js";
-import { showNewPostCard } from "./modules/helpers/showNewPostCard.js"
+import { getAllPosts } from "./modules/fetch/getAllPosts.js";
+import { printPosts } from "./modules/post/helpers/printPosts.js";
+import { showNewPostCard } from "./modules/post/helpers/showNewPostCard.js";
 
 const loadFiveBtn = document.getElementById("load-five-btn");
 const newPostBtn = document.getElementById("new-post-btn");

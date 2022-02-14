@@ -1,6 +1,6 @@
-import { deletePost } from "../events/deletePost.js";
-import { togglePostEdtr } from "../helpers/togglePostEdtr.js";
-import { cmntsHandler } from "../helpers/cmntsHandler.js";
+import { deletePost } from "../../fetch/deletePost.js";
+import { togglePostEdtr } from "../../postEditor/helpers/togglePostEdtr.js";
+import { cmntsHandler } from "../../comments/helpers/cmntsHandler.js";
 
 function getCard(id) {
   if (!id && id !== 0) {
